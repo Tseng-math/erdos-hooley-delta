@@ -1,0 +1,6 @@
+u interval       polynomial pieces   boxes visited   greatest depth
+[0,0.17]                     3238           88490               31
+[0.17,0.195]                 3238            6670                9
+[0.195,0.225]                3238            3414                5
+[0.225,0.65]                 3238            4434                6
+Bellman margin >= 2/1000000; 0.3556265775098 < a_star < 0.3556265775100

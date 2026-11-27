@@ -1,0 +1,2509 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1.04in,top=.91in,bottom=.92in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[unicode,hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\numberwithin{equation}{section}
+\allowdisplaybreaks[2]
+\setlength{\emergencystretch}{1.5em}
+\newcommand{\PP}{\mathbb P}
+\newcommand{\EE}{\mathbb E}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\one}{\mathbf 1}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\spanop}{span}
+\hypersetup{pdftitle={The normal order of the Erd\H{o}s--Hooley \unichar{"0394}-function},
+            pdfauthor={Tseng}}
+\title{The normal order of the Erd\H{o}s--Hooley $\Delta$-function}
+\author{Tseng}
+\date{}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $\Delta(n)$ be the largest number of divisors of $n$ whose
+logarithms lie in an interval of length one. We prove that
+$\Delta(n)=(\log\log n)^{\alpha+o(1)}$ on a set of natural density
+one, with $0.35553850187<\alpha<0.3556265775100$. We identify
+$\alpha$ with the equal-subset-sum exponent $\zeta_+$ of Ford, Green
+and Koukoulopoulos. This proves the integer case of their Conjecture~2
+and disproves the prediction $\zeta_+=\eta$ in their Conjecture~1,
+where $\eta=0.35332277\ldots$ is the exponent of their binary
+construction. The main step converts entropy constraints on
+large-prime choices admitting small-prime completions into a
+construction that can be repeated on disjoint ranges. Two variational formulas then give certified
+bounds for $\alpha$ to arbitrary precision. The stated interval comes
+from a construction with sixteen types of splits and a recursive
+bound valid for every admissible tree.
+\end{abstract}
+
+\section{Introduction}\label{s:intro}
+
+For a positive integer $n$, set
+\[
+ \Delta(n)=\max_{u\in\mathbb R}\#\{d\mid n:e^u<d\le e^{u+1}\}.
+\]
+We determine the growth exponent of this maximum for almost every
+integer.
+
+\begin{theorem}\label{t:main}
+There is a real number $\alpha$ such that for every $\varepsilon>0$,
+\[
+ \lim_{x\to\infty}\frac1x\#\left\{16\le n\le x:
+ \left|\frac{\log\Delta(n)}{\log\log\log n}-\alpha\right|
+ >\varepsilon\right\}=0 .
+\]
+Equivalently, $\Delta(n)=(\log\log n)^{\alpha+o(1)}$ on a set of
+natural density one. The exponent satisfies
+\begin{equation}
+             0.35553850187<\alpha<0.3556265775100 .
+             \label{e:decimal}
+\end{equation}
+\end{theorem}
+
+In 1948 Erd\H{o}s asked whether almost every integer has two
+divisors $d_1<d_2<2d_1$ \cite{erdos}. In 1975
+Erd\H{o}s and Nicolas studied the concentration of divisors in
+dyadic intervals \cite{en75}. Their 1976 paper defines $F(n)$ as the
+largest number of divisors of $n$ in an interval $(t/2,t]$ and studies
+the integers at which $F$ attains a new record \cite{en76}. The two choices of
+window give $F(n)\le\Delta(n)\le2F(n)$, since two dyadic intervals
+cover a window of ratio $e$. In 1979 Hooley bounded the mean of
+$\Delta$. He used this estimate to bound how closely $n^2\theta$
+can approach a prescribed point modulo one for irrational $\theta$,
+and to give a lower bound for the count of integers of the form
+$a^2+b^4+c^4$ \cite[Theorems~4--5]{hooley}. Hall and Tenenbaum
+studied both the mean and the normal order \cite{ht}.
+Maier and Tenenbaum settled Erd\H{o}s's original density question
+\cite{mt84}.
+
+Two successive predictions for the normal-order exponent arose
+from ways of building clusters of divisors. Maier and Tenenbaum
+developed lower bounds by constructing close pairs on disjoint prime
+supports \cite{mt85,mt09}. Taking one divisor from each of $m$ pairs
+gives $2^m$ products, while the logarithmic widths of the pairs add.
+In 2009 they obtained the lower exponent $0.33827\ldots$ and
+conjectured that it was optimal \cite[Theorems~1.3--1.4 and the
+conjecture following Theorem~1.4]{mt09}.
+Ford, Green and Koukoulopoulos allowed a whole family of choices
+on each range of primes. Their binary construction raised the lower
+exponent to $\eta=0.35332277\ldots$ and disproved the Maier--Tenenbaum
+prediction \cite[Corollary~1 and Theorem~3]{fgk}. They distinguished
+two conjectures. Conjecture~1 predicts the value $\eta$ for the
+exponent $\zeta_+$ of their equal-subset-sum model. Conjecture~2
+predicts that $\zeta_+$ is sharp for integers, permutations and
+polynomials over finite fields \cite{fgk}. For the integers we prove
+$\alpha=\zeta_+$. The strict lower bound in \eqref{e:decimal} gives
+$\zeta_+>\eta$, so the FGK binary construction also underestimates
+the normal-order exponent. On the upper side, the exponent $\log2$ of Maier and
+Tenenbaum \cite{mt09} was reduced to $0.61024\ldots$ by
+de la Bret\`eche and Tenenbaum \cite{bt}.
+
+A related question fixes the number $k$ of divisors and asks how
+fast the interval containing them can shrink. Hou and Zhao
+\cite[Theorem~2]{hz} and Mao and Song \cite[Theorem~1.2]{ms} determined
+the supremum of the $a$ for which almost every $n$ has $k$ distinct
+divisors with largest-to-smallest ratio at most $1+(\log n)^{-a}$.
+It is $\beta_k/(1-\beta_k)$, where $\beta_k$ is the fixed-$k$
+equal-sum threshold defined in Section~\ref{s:flags}. This settles
+\cite[Conjecture~3]{fgk}. Mao and Song also proved that above the
+threshold the integers possessing such a cluster have density zero.
+Both papers identified the weak and strict entropy thresholds for
+$\beta_k$. We use their refinement and perturbation method in
+Section~\ref{s:flags}.
+
+\subsection*{Idea of the proof}
+
+A lower bound can be built one range of primes at a time. Once a
+range supplies several choices with nearly equal logarithmic sums,
+their products with the choices on a disjoint range multiply the
+size of the cluster. Reversing this argument presents a difficulty.
+Two close divisors may have widely separated large-prime parts.
+Smaller primes can compensate for the difference, in many ways
+that depend on the large-prime choices. An upper bound has to
+allow all those completions.
+
+Our comparison starts from the entropy constraints on a family
+that admits completions. As successively smaller primes are read, their
+membership patterns split the divisors into classes. The resulting
+tree records when two divisors first differ, but distinct branches
+can still satisfy a common linear constraint. We prove that the
+entropy of the information shared by the branches suffices to remove
+these constraints while preserving all split times. In the enlarged
+spaces one can keep a fixed fraction of the rows and terminate the
+system at a positive height. It now describes a construction on one
+range, with the smaller ranges free for further repetitions. Both
+the number of choices and the cutoff height change by at most
+constant factors. Hence the upper count and the lower construction
+give the same exponent.
+
+Theorem~\ref{t:variation} makes these two descriptions precise.
+Sections~\ref{s:open} and \ref{s:tree} prove the comparison, and
+Section~\ref{s:arith} transfers it to the integers. Its quantitative
+form gives the stopping rule in Section~\ref{s:eval}. The lower and
+upper bounds in Sections~\ref{nl:section} and \ref{nu:section}
+come from counting the leaves of one tree and bounding the growth
+of every feasible tree, respectively.
+
+\section{Two finite variational problems}\label{s:flags}
+
+All logarithms are natural. For a finite random variable $X$ with
+law $(p_x)$ write $H(X)=-\sum_x p_x\log p_x$, with $0\log0=0$.
+We use $I(X;Y)=H(X)+H(Y)-H(X,Y)$ and relative entropy
+$D(P\Vert Q)=\sum_x p_x\log(p_x/q_x)$, with value $+\infty$ if
+$P$ charges a $Q$-null set. Conditional versions have their usual
+meaning \cite{ct}. For a subspace $W$, $X\bmod W$ denotes the random
+coset of $W$ containing $X$.
+
+\subsection{Spaces, times and observations}
+
+For a squarefree integer and an ordered list of $k$ divisors, give
+each prime factor a column in $\{0,1\}^k$ recording divisibility in the
+$k$ rows. Multiplying the column by $\log p$ and summing recovers
+the vector of divisor logarithms. The constant vector changes
+all row sums equally, so only their image modulo constants matters.
+Ford, Green and Koukoulopoulos \cite[Sections~3--4]{fgk} record
+the span of the columns as they are read in decreasing order.
+The time $t=(\log\log p)/s$ has a useful normalization. In the
+prime model a stage of length $c_j-c_{j+1}$ contains about
+$s(c_j-c_{j+1})$ points on average, by
+Lemma~\ref{l:prime-log-measure}.
+
+Fix $k\ge2$. A flag is a chain of rational vector spaces
+$V_0=\Q\one\subset V_1\subset\cdots\subset V_r\subseteq\Q^k$,
+each obtained from the preceding space by adjoining one vector in
+$\{0,1\}^k$. Its times satisfy $1\ge c_1\ge\cdots\ge c_r\ge b\ge0$,
+with $c_{r+1}=b$. At times above $c_1$ the space is $V_0$.
+In decreasing time, $V_j$ is born at $c_j$ and lasts until $c_{j+1}$.
+A tie retains the order of the two births. In the $j$th stage choose
+a law for a Boolean column $X_j$ in $V_j$. A test consists of
+nested subspaces $W_0=V_0\subseteq W_1\subseteq\cdots\subseteq W_r$
+with $W_j\subseteq V_j$. Put $d_j=\dim(V_j/W_j)$. The excess of
+the test is
+\begin{equation}
+ \sum_{j=1}^r(c_j-c_{j+1})\{H(X_j\bmod W_j)-d_j\}-b d_r .
+ \label{e:pay}
+\end{equation}
+A flag is weak if all excesses are nonnegative. It is strict if
+every test other than $W_j=V_j$ for all $j$ has positive excess.
+To interpret the two terms, prescribe the empirical law of the
+columns on a stage. The multinomial count of their orders, as seen
+modulo $W_j$, has logarithm governed by the number of columns times
+$H(X_j\bmod W_j)$. On the other hand, each observed dimension
+requires the corresponding row sums to match at the scale of its
+birth. Summation by parts distributes this cost over the lifetime
+of each dimension. A dimension still observed at $b$ incurs the
+additional cost $b$. This explains the terminal term in \eqref{e:pay}.
+
+It is convenient to allow intermediate stages on which the space
+stays fixed. Their laws may be combined in a length-weighted mixture
+by entropy concavity, testing first with a constant kernel throughout
+the combined stage. Conversely, for a constant law, permitting extra
+jumps of the kernel preserves weakness. Sample one time uniformly
+in each positive-length stage and average \eqref{e:pay} for the
+sampled kernels. They are nested and the terminal codimension can only decrease if the kernel grows at the
+end of that stage. Zero-length intermediate
+stages may be filled by intersecting the next kernel with the current
+space.
+
+The cells of $V$ are the classes of rows with identical evaluations
+on $V$. A space separates the rows if every cell is a singleton.
+Define $b_k$ as the supremum of the endpoints of strict separating
+flags. Define $s_k$ as the greatest height at which all rows are
+already distinguished in a weak flag with endpoint zero. Births at
+the specified height count. The compactness proof for $s_k$ is given
+below. Even for two rows these quantities differ. There is one
+contrast, taking the three values $-1,0,1$. A birth at time one
+and a uniform law on these three values give excess
+$(1-b)\log3-1$ for the only proper test. This is the largest
+possible excess, so $b_2=1-1/\log3$ and $s_2=1$.
+
+\begin{theorem}\label{t:variation}
+The exponent in Theorem~\ref{t:main} satisfies
+\begin{equation}
+ \alpha=\sup_{k\ge2}\frac{\log k}{\log(1/b_k)}
+       =\inf_{\substack{k\ge2\\s_k<1}}
+                  \frac{\log(k-1)}{\log(1/s_k)} .
+ \label{e:alpha}
+\end{equation}
+For $k\ge10$ a single finite optimization gives
+\begin{equation}
+ \frac{\log\lfloor k/5\rfloor}{\log(8/s_k)}
+       \le\alpha\le\frac{\log(k-1)}{\log(1/s_k)} .
+ \label{e:singlek}
+\end{equation}
+Its width is $O(1/\log k)$ with explicit bound \eqref{e:width}.
+For every rational $\varepsilon>0$, a finite algorithm returns
+rationals $l\le\alpha\le u$ with $u-l<\varepsilon$.
+\end{theorem}
+
+\subsection{Finite tests and the arithmetic lower rate}
+
+There are finitely many ambient chains because each new generator
+is Boolean. To make the tests finite as well, it is essential to
+record when two letters lie in the same observed coset. This is
+the difference-vector reduction of Mao and Song
+\cite[Lemma~2.2]{ms}, refining the subflag count in
+\cite[Section~4]{fgk}. For stage alphabet
+$\Omega_j=V_j\cap\{0,1\}^k$ and any test replace $W_j$ by
+\[
+ \spanop_{\Q}\!\left(\{\one\}\cup
+       \bigcup_{i\le j}\{u-v:u,v\in\Omega_i,\ u-v\in W_i\}\right).
+\]
+This space is contained in $W_j$, is nested, and preserves every
+coset partition of the relevant stage alphabet. Its rank cost
+can only increase. A proper test remains proper. Enumerating all
+subsets of the finite difference sets and taking their cumulative
+spans therefore suffices for both weakness and strictness.
+
+In particular all relevant inequalities are continuous in finitely
+many clocks and probability vectors. Weak feasibility is closed.
+There are finitely many choices of the first separating space, so
+compactness of the ordered clocks and the probability simplexes
+proves attainment of $s_k$.
+
+The passage from weak to strict inequalities at positive endpoints
+is due to Hou and Zhao \cite[Theorem~4]{hz} and Mao and Song
+\cite[Theorem~3.4]{ms}. Their method refines a flag into rank-one
+jumps and mixes its laws with a system having strict slack. We use
+an auxiliary system with a positive endpoint even when the original
+one ends at zero. On the same rank-one Boolean chain, with successive
+pivots $u_j$, take births $g^{j-1}$, endpoint $g^r$ and stage
+letters $0,u_j,\one-u_j$ with equal probabilities, where
+$(1-g)\log3>1$ and $0<g<1$. Use the ordered pivot basis modulo
+constants. The possible last nonzero indices in a nested test
+space form a nondecreasing set, whose cardinality is its dimension
+modulo constants by elimination. For an index $j$ missing when
+born, its entire rank cost including the endpoint is at most
+$g^{j-1}$, whereas on its birth stage the three cosets are
+distinct, earning $(1-g)g^{j-1}\log3$. Indices present at birth
+cost nothing. A proper test misses some index. Thus this auxiliary
+clock is strict. Mix the two clocks with a small positive weight
+on the auxiliary one, using mixtures of the laws in proportion to
+their weighted lengths on each stage. Entropy concavity and the
+linear rank costs give strictness. All positive stages can also
+be given full letter support by a sufficiently small perturbation
+because there are only finitely many test profiles. The argument
+applies to a zero endpoint as well. A positive weak flag conversely
+extends weakly to zero using the zero letter, since the tail cost
+is at most its previous terminal debit.
+
+In the logarithmic random set $\mathcal A$ of Ford, Green and
+Koukoulopoulos, each positive integer $m$ occurs independently with
+probability $1/m$. Their $\beta_k$ is the supremum of the $b$ for
+which $\mathcal A\cap(D^b,D]$ contains $k$ distinct subsets with
+equal sums with probability tending to one as $D\to\infty$.
+To identify this threshold with $b_k$, write $\widetilde{\gamma}_k,\gamma_k$ for the strict
+and weak endpoint suprema of Ford, Green and Koukoulopoulos.
+Their entropy criterion gives
+$\widetilde{\gamma}_k\le\beta_k\le\gamma_k$
+\cite[Theorem~7]{fgk}. Mao and Song give the corrected subflag and
+residual-sum counts and verify this comparison
+\cite[Lemmas~2.2--2.3 and Proposition~2.4]{ms}. In the energy
+difference for a subflag, summation by parts gives
+\[
+ \sum_{j=1}^r c_j(d_j-d_{j-1})
+ =\sum_{j=1}^r(c_j-c_{j+1})d_j+bd_r,\qquad d_0=0,
+\]
+which is precisely the dimension cost in \eqref{e:pay}.
+The ambient spaces in the finite entropy criterion are spanned by
+Boolean columns and its terminal nondegeneracy condition is exactly
+row separation. Dividing all times by $c_1$ normalizes the first birth to one,
+scales every excess by $1/c_1$ and can only increase the endpoint.
+A jump by several Boolean generators can be refined by adjoining
+them successively at the same time, retaining the original law on
+the final stage of the jump. Compression to its last kernel preserves
+the excess. The strict perturbation therefore identifies $b_k$ with $\beta_k$,
+the common positive threshold in \cite[Theorem~4]{hz} and \cite[Theorem~1.5]{ms}. The height
+$s_k$ permits the flag to continue after all rows have separated.
+This continuation is what makes it useful for counting completions.
+
+Put $A=\sup_{k\ge2}\log k/\log(1/b_k)$. We claim that $A$ equals the lower rate of \cite{fgk}, namely
+\[
+       \zeta_+=\limsup_{k\to\infty}
+                    \frac{\log k}{\log(1/\beta_k)} .
+\]
+Fix $0<b<\beta_k$.
+On the $m$ disjoint intervals $(D^{b^{j+1}},D^{b^j}]$,
+$0\le j<m$, the equal-sum event for $k$ choices holds simultaneously
+with probability tending to one for each fixed $m$. Unions give
+$k^m$ distinct equal-sum subsets. Thus $\beta_{k^m}\ge b^m$, and
+the limsup over the number of choices equals the supremum defining
+$A$. The divisor transfer of \cite[Theorem~3]{fgk} gives, for every
+$\varepsilon>0$,
+\begin{equation}
+  \Delta(n)\ge(\log\log n)^{A-\varepsilon}
+  \qquad\text{for almost every }n .
+  \label{e:arithlower}
+\end{equation}
+Section~\ref{s:arith} and Appendix~\ref{s:realization} give a direct
+proof of \eqref{e:arithlower} on the same prime process used for
+the upper bound. In particular the proof of the normal order can
+be read independently of the random-set transfer.
+
+\section{From separated rows to a positive endpoint}\label{s:open}
+
+A new Boolean column splits each
+affected cell into two children. This produces a rooted binary
+tree, with ties allowed between splits. Restriction to a subset of
+rows preserves weakness. The inverse images of a test under the
+stagewise restriction maps have the same observed cosets and ranks.
+Throughout a stage use one coordinate per current cell. On a node $v$ write $V_v$ for the restriction of the given space.
+After the split at $v$, $V_v$ contains the two separate child
+indicators, since the splitting column restricted to $v$ and its
+complement are those indicators. The full space on the current
+cells consists of all rational functions on those cells and contains
+every Boolean word. Its chain, with the same
+separation times, is called the \emph{full partition flag}. Ties may
+be resolved at zero duration by adjoining the split indicators
+one at a time. After the last of these births the space is the
+full space on the refined partition.
+
+For a block $v$, its raw word is the Boolean word on its current
+cells. Its unrooted word is its coset modulo the constants
+on $v$. The image determines each nonconstant raw word because the only
+distinct Boolean words differing by a nonzero constant are the
+two constant words. We call their common image \emph{vacant}.
+At a split the two unrooted child words have respectively one,
+two or three possible extensions to an unrooted parent according
+as zero, one or two children are vacant. In the last case the
+extensions are the vacant parent and the two opposite assignments.
+
+\begin{theorem}[Restoration of the full partition space]\label{t:restore}
+Every finite weak flag with endpoint zero has a weak full partition
+flag on its tree with the same separation times.
+\end{theorem}
+
+Consider four rows and the successive columns
+\[
+             u=(0,0,1,1),\qquad v=(0,1,0,1).
+\]
+The first divides the rows into two pairs. The second distinguishes
+both members of each pair. All four rows are now distinct, although
+the space spanned by $\one,u,v$ has dimension three. Its two sibling
+contrasts obey
+\begin{equation}
+                  x_2-x_1=x_4-x_3 . \label{e:fourrows}
+\end{equation}
+The full partition space is $\Q^4$, in which these contrasts may vary
+separately. Row separation is therefore visible from the tree, while
+the rank available at the endpoint also depends on the linear
+relations between branches. Theorem~\ref{t:restore} supplies the
+full rank needed in the next argument. Its proof is given in
+Section~\ref{s:tree}.
+
+For $0<c\le1$, let $M(c)$ be the greatest number of cells distinguished by height
+$c$ in weak zero-endpoint flags, allowing arbitrary initial arity.
+It is finite for each $c>0$. To see this take any internal node
+at height $S$ with an internal child at $s$. Select two rows
+across the latter split and one on the opposite side of the former.
+Test all their contrasts throughout time. They have ranks one on
+$(s,S)$ and two on $(0,s)$, and their respective entropies are
+at most $\log3$ and $\log7$, by counting unrooted words.
+The early stage can earn a surplus since $\log3>1$, while two
+contrasts among three rows force a deficit since $\log7<2$.
+In particular weakness forces a gap between the two split heights.
+\[
+ 0\le(S-s)(\log3-1)+s(\log7-2),\qquad
+ s\le\gamma S,\quad
+ \gamma=\frac{\log3-1}{\log3-1+2-\log7}<1 .
+\]
+At most $1+\log(1/c)/\log(1/\gamma)$ splits of height at least
+$c$ occur on a path. In particular $M(c)\le2c^{-a_0}$ with
+$a_0=\log2/\log(1/\gamma)$. By restriction to representatives
+$M(c)\ge k$ is equivalent to feasibility on just $k$ rows,
+distinguished at $c$. By attainment of $s_k$ this is equivalent to $c\le s_k$.
+
+Stopping a flag at positive height leaves a terminal rank cost.
+A test with negative excess identifies the rows responsible for
+this loss. Its kernel tells us which coordinate evaluations can
+be kept, and its codimension is bounded by the entropy available
+in the discarded tail.
+
+\begin{lemma}\label{l:opening}
+If $M(c)=R\ge10$, then $b_{\lfloor R/5\rfloor}\ge c/8$.
+\end{lemma}
+\begin{proof}
+Restore the full flag and keep one row per cell present at $c$.
+The restricted flag is weak and already has space $\Q^R$ at $c$.
+One can use a height $s<c$ arbitrarily close to $c$ to be inside
+a stage. For prefix tests ending at $s$, put
+$G(W)=\int_s^1[H(X\bmod W)-\dim(V/W)]\,dt$. Every $G(W)$
+is nonnegative by closing the kernel to the full space for the
+rest of the clock. Set $b=s/8$ and minimize
+$E(W)=G(W)-b\dim(\Q^R/W(s))$ over prefix tests on the finite
+list of stage boundaries augmented by $s$. The finite test argument
+in Section~\ref{s:flags} gives a minimizer. Shifting the prefix heights down by $s-b$ and filling the top
+by constants gives precisely this positive-endpoint payoff. If the minimum is nonnegative
+we keep every row. Otherwise let a minimizer $W_*$ have terminal
+codimension $e$. Use its prefix on the old flag and keep its
+kernel fixed until time zero. The tail observation has entropy
+at most $R\log2$ at each time, so
+\[
+       0\le G(W_*)+s(R\log2-e)<be+s(R\log2-e).
+\]
+Thus $e<(8/7)R\log2<4R/5$. Keep $R-e$ independent coordinate
+evaluations on $W_*(s)$, so their projection maps it onto the
+whole new terminal space. If $U$ is the pullback of any test on these
+rows, then $U+W_*$ is full at $s$. The entropy of a linear
+quotient is submodular in its kernel. Observing modulo the
+intersection is equivalent to observing both cosets, and the coset
+of the sum is a function of each. Dimensions satisfy the corresponding
+identity with equality. Integration therefore gives
+\[
+  E(U)\ge E(U+W_*)+E(U\cap W_*)-E(W_*)\ge G(U+W_*)\ge0.
+\]
+The projected flag is weak at positive endpoint $b$. Restrict
+further if necessary, merge repeated spaces, and use the strict
+perturbation above. Let $s\uparrow c$.
+\end{proof}
+
+The lower rate $A$ is positive and finite. Positivity follows from the two-row calculation. Restriction gives $b_k\le b_2$,
+using weak restriction and strict approximation if necessary.
+Filling to zero gives $b_k\le(2/k)^{1/a_0}$. This bounds the
+ratios defining $A$ uniformly for large $k$, while $b_2<1$ covers
+the remaining terms. From Lemma~\ref{l:opening} and $b_m\le m^{-1/A}$,
+\begin{equation}
+                    M(c)\le 10+5(8/c)^A . \label{e:growth}
+\end{equation}
+For $k=M(c)+1$ we have $s_k\le c$. It follows from \eqref{e:growth},
+letting $c$ decrease to zero, that
+\[
+ \inf_{k:s_k<1}\frac{\log(k-1)}{\log(1/s_k)}
+       \ \le\ \liminf_{c\downarrow0}\frac{\log M(c)}{\log(1/c)}
+       \ \le\ A .
+\]
+Write $U_*$ for the infimum on the left. By \eqref{e:arithlower}
+the lower rate $A$ holds on the integers. Section~\ref{s:arith} will
+give the upper rate $U_*$ there. Since the two bounds hold in
+natural density, $A\le U_*$. The inequality just proved then yields
+$A=U_*$ and identifies the exponent. We turn to the two ingredients of this comparison, preservation of
+weakness under restoration and the arithmetic bound on continuations.
+
+\section{The full partition theorem}\label{s:tree}
+
+In \eqref{e:fourrows} take the Boolean word uniformly from
+$0,v,\one-v$. Each sibling contrast is uniform on $\{-1,0,1\}$,
+but the pair carries only $\log3$ units of entropy since its
+coordinates agree. Under the product of the two contrast laws
+the pair has entropy $2\log3$ and its linear rank rises from one
+to two. The common observation is the single contrast seen on
+both sides. In general its entropy can be small at a particular
+stage. The original weak flag bounds its entropy integrated over
+time, because the common observation itself defines a test.
+
+There is a further constraint on this idea. A test may see only
+the joint word on a parent. If both child words are constant,
+their two bits can agree or disagree, and the information in their
+relative orientation affects the parent entropy. The replacement
+laws must accommodate this possibility for every test at once.
+Lemma~\ref{l:cutmin} reduces the tests to cuts of the tree.
+Lemma~\ref{l:gibbs} constructs laws for nested cuts with a
+bound of $2/3$ on each contrast atom. The comparison
+\eqref{e:comparison} then recovers the entropy of the common
+observations while accounting for the possible constant words.
+Integration converts this recovery into the required rank
+inequalities.
+
+We prove the theorem on a fixed finite list of stages. Include the
+zero-length stages needed for the two chains. At positive stages
+the two chains have identical cells. When an old pivot splits
+several cells at once the intermediate full spaces have duration
+zero. Pulled-back kernels on the original positive stages extend
+over omitted zero stages by intersecting the next kernel with
+the intermediate ambient space (use the full kernel after the
+last positive stage if necessary). All these extensions are
+nested. The proof produces one law per positive-length stage.
+
+\subsection{Reduction to cuts of the tree}
+
+An evolving cut starts with the root. A cut member may be replaced
+by its two children at a time when it has exactly two distinguished
+cells. Its kernel is the space of words constant separately on
+the current cut members. Its observation is the tuple of their
+unrooted words. On the four rows in \eqref{e:fourrows}, cutting
+into the two pairs observes $(x_2-x_1,x_4-x_3)$ and has kernel
+$\{(a,a,b,b):a,b\in\Q\}$. Use only listed boundaries for these
+decisions. Ford, Green and Koukoulopoulos use submodularity and
+symmetries of a fixed flag to reduce the class of entropy tests
+\cite[Section~8]{fgk}. Here the symmetries are sign changes on
+individual subtrees. They force a minimizing kernel to decompose
+as soon as the corresponding branches can be separated.
+At each positive stage let $\mathcal L$ consist of laws with the
+following two properties. Each pair of distinct cells agrees with
+probability at most $1/2$. Complementing any entire nonconstant
+rooted subtree, leaving it alone if it is constant, preserves
+the raw law. These constraints define a compact convex set.
+
+\begin{lemma}\label{l:cutmin}
+For stage laws in $\mathcal L$, the minimum of the payoff over all
+nested rational tests equals its minimum over evolving cuts.
+\end{lemma}
+\begin{proof}
+On a block of $N\ge3$ current cells let $K$ contain the constants
+and have dimension $r$. Then
+\begin{equation}
+ H(X\bmod\one\mid X\bmod K)\le r-1 . \label{e:fiber}
+\end{equation}
+Here and below $\bmod\one$ denotes the quotient by the constant line.
+For $r=1$ this is immediate. In an affine $K$-fiber its Boolean
+points are determined by $r$ independent coordinates. If all
+$2^r$ patterns are attained, the two extreme patterns differ by
+$\one$ on those coordinates and hence globally. Thus there are at
+most $2^r-1$ distinct unrooted possibilities, whose logarithm
+for $r\ge3$ is at most $r-1$. For $r=2$, put $K=\spanop(\one,v)$.
+Three distinct unrooted possibilities have three distinct slopes
+along $v$. If $v$ takes at least three values, each pairwise
+nonconstant difference, having values in $\{-1,0,1\}$, has
+oscillation two. Three distinct real slopes cannot have identical
+pairwise distance. If $v$ has just two levels, three possibilities
+require a word constant within both levels, since a nonconstant
+level fixes its raw assignment and the other has at most two choices.
+One level contains a fixed pair of cells. The event that the fiber
+has three possibilities therefore has probability at most $1/2$.
+The conditional entropy is at most $(\log2+\log3)/2<1$.
+
+By submodularity, as in the proof of Lemma~\ref{l:opening}, the sum
+of the excesses of two tests dominates the sum of the excesses of
+their intersection and sum. A minimizer exists because
+the dimensions and the induced partitions on all finite alphabets
+take finitely many profiles. Choose one maximizing the sum of
+kernel dimensions on all listed stages. By the preceding inequality
+it contains every other minimizer.
+
+Starting with the root, keep this test decomposed across the
+present cut. Close a cut block as soon as its test kernel is the
+whole space on its two current cells. At this closing stage
+the kernel is a direct sum across the present cut and contains
+both child indicators. It is therefore invariant under negation
+on either child. Leave all kernels through this stage untouched
+and apply one such negation to every later kernel. Invariance at
+the closing stage gives nesting across the boundary. The payoff
+is preserved because complement acts as negation modulo the
+child constants and the vacant word maps to zero. Maximality
+makes the chosen later kernels invariant
+under each separate negation. Subtracting a negated vector and
+dividing by two shows these kernels split as direct sums across
+the new cut. This inductively justifies all the closures, also when
+several occur together. Relative to observing all current unrooted
+cut words, the entropy lost by this test is at most the sum on its
+blocks of the left sides of \eqref{e:fiber}, by the conditional
+entropy chain rule. A remaining block of size one or two has only
+the constant kernel. The rank saved thus covers the lost entropy.
+The cut has at most the minimizing payoff and is itself admissible.
+\end{proof}
+
+One law must pass all the cuts. Optimizing the law separately
+for each cut would interchange the quantifiers in that requirement.
+A separating hyperplane instead allows us to fix a weighted
+collection of cuts and optimize a single law for their combined
+payoff. Submodularity then orders the cuts into a chain, meaning
+simultaneous inclusion of their kernels at every time.
+For laws restricted to $\mathcal L$ on every positive stage,
+the maximum minimum cut payoff equals
+\begin{equation}
+ \min_{\substack{C_1,\ldots,C_h\ {\rm a\ chain}\\
+                       a_i\ge0,\ \sum_i a_i=1}}
+     \ \max_{Q\in\mathcal L}\sum_i a_i\,g_{C_i}(Q),
+ \label{e:minimax}
+\end{equation}
+where $g$ is the whole payoff. Indeed the downward closure of
+the attainable vectors of cut payoffs is convex by entropy
+concavity and closed by compactness. Separation from a strictly
+larger constant vector gives a nonnegative supporting normal of
+sum one, proving finite minimax. Two cuts can be replaced by
+their meet and join. A split closes at the later or earlier of the
+two closure times, including infinite times. The resulting cuts
+are legal by the ancestry condition. In the basis of the constant and one child indicator per split,
+each kernel is spanned by the previously closed splits and the
+constant. The new kernels are therefore the intersection and sum. Thus this replacement decreases
+the sum of payoffs for every law. Replicate rational weights into
+equal weights and sort using meet and join as comparators in a
+fixed sorting network (for example, repeated adjacent sweeps).
+Sorting the zero-one indicator of every closure at every stage
+puts the resulting whole tests in a chain. Approximation of the real
+weights gives \eqref{e:minimax}, since all payoffs are uniformly
+bounded and the list of cut chains is finite.
+
+\subsection{Entropy maximizers on a full subtree}
+
+At one stage consider nested forest observations of a full
+Boolean word, with nonnegative weights, on a given subtree.
+The objective is the weighted sum of their entropies, plus
+$\theta$ times the probability of whole-subtree vacancy. Assume
+the full unrooted word occurs with weight at least $w>0$ and
+$0\le\theta\le w\log2$. Give the two lifts of a vacant root
+equal probabilities to obtain a raw law. The reward accounts for
+the bit that distinguishes these two lifts. Recursive optimization
+over successively finer observations also occurs in the coset
+trees of \cite[Section~7.2]{fgk}. Here the observations arise
+from cuts of the row tree, and the same recursion must control
+both the vacancy reward and the concentration of linear contrasts.
+
+\begin{lemma}\label{l:gibbs}
+This objective has an optimizer $Q$ in $\mathcal L$. It has full
+support on the unrooted alphabet. For any nonzero scalar contrast
+$L$ on the cells, meaning a linear functional annihilating constants,
+\begin{equation}
+                 \max_z Q(L=z)\le 2/3. \label{e:atom}
+\end{equation}
+If $G$ denotes the objective and $\mu$ any competing law, then
+\[
+ G(Q)-G(\mu)=\sum_i a_i
+           D(\mu_{O_i}\Vert Q_{O_i}),
+\]
+where $O_i$ are the forest observations. When both raw laws
+are complement symmetric the full unrooted divergence equals
+the raw divergence. With zero vacancy reward and no required
+full-word weight, an optimizer in $\mathcal L$ still exists.
+\end{lemma}
+\begin{proof}
+Starting from individual vacant cells, reveal joins in the order
+in which the nested views require them, children before parents.
+A view consists precisely of all joins in its forest blocks.
+Refine simultaneous reveals arbitrarily in this order. Number the
+joins $1,\ldots,m$ and put $w_k$ equal to the total weight of the
+views that see join $k$. The chain rule expresses the objective
+as the sum of the conditional entropy at each join times $w_k$,
+and the final vacancy reward. Here $w_1\ge\cdots\ge w_m\ge w$.
+Let $y_k$ be the entire state after $k$ joins. Initialize
+$F_m=\theta\one_{\rm root\ vacant}$ and compute backwards
+\[
+ F_{k-1}(y)=w_k\log\sum_{x:\ x\ {\rm extends}\ y}
+                                    \exp(F_k(x)/w_k).
+\]
+Conditionally on $y$, assign probabilities proportional to
+$\exp(F_k(x)/w_k)$. The identity for entropy minus relative
+entropy verifies optimality and gives positive probabilities.
+If the tree has a single cell the conclusions hold directly.
+
+Each $F_k$ depends only on vacancy indicators of its present
+blocks. Its increment on changing one block from nonvacant to
+vacant is between zero and $w_{k+1}\log2$ for $k<m$.
+The terminal bound uses $\theta\le w_m\log2$. In backward
+induction an unchanged block inherits the bound by monotonicity
+and constant translation of log-sum-exp. For either child of the
+current join the increment is $w_k\log2$ if its sibling is
+nonvacant. With a vacant sibling it is
+$w_k\log[(2+\exp(\delta/w_k))/2]$, where $\delta$ is the
+continuation increment for the parent and
+$0\le\delta\le w_k\log2$. The induction also applies if one includes formal
+nonvacant singleton states when computing the increments. Thus at a double vacancy the conditional chance of a
+vacant parent is between $1/3$ and $1/2$. All available sign
+choices are fair and vacancy decisions depend only on previous
+vacancies. Given the whole vacancy pattern the compatible raw
+assignments are equiprobable because the number and sites of the
+fair choices are fixed and the signs can be recovered from the
+assignment. Complementing a nonconstant rooted block leaves
+this pattern unchanged. Two cells in different children of
+their least common ancestor agree with conditional probability
+$1/2$ if one child is nonvacant, by its complement symmetry.
+When both children are vacant their agreement probability at that
+join is at most $1/2$. This proves the two properties of $\mathcal L$.
+
+For the scalar estimate, the log probability of a raw word,
+up to a constant, is
+\[
+   \sum_{k=1}^{m-1}(1/w_k-1/w_{k+1})F_k(y_k)
+       +(\theta/w_m-\log2)\one_{\rm root\ vacant}.
+\]
+This follows by multiplying the transition probabilities, including
+the fair sign on a vacant root. All coefficients are nonpositive.
+Fix one leaf $i$. If its sibling block $S$ is nonvacant, flipping
+that leaf leaves all vacancy states unchanged. If $S$ is constant,
+flipping the leaf away from that same bit can only remove vacancies.
+Its raw probability can therefore only increase. Pairing words by
+the flip shows that the total variation distance between $Q$ and
+its flipped law is
+\[
+ Q(S\ {\rm vacant})-2Q({\rm parent\ vacant})
+                \le Q(S\ {\rm vacant})/3\le1/3 .
+\]
+The first inequality uses the lower bound $1/3$ at the join of
+the leaf with $S$. Flip a leaf with nonzero coefficient in $L$.
+An atom event and its flipped event are disjoint, giving
+$2Q(L=z)\le 1+1/3$.
+
+At an interior maximum on the simplex of full unrooted words the
+first variation vanishes on each zero-sum direction. Expanding the
+entropies about that point gives the divergence identity, since
+the vacancy reward is linear. A symmetric raw law is the same
+fair extension at a vacant word, proving the divergence assertion.
+With zero full-word weight and zero reward, add $\epsilon>0$ to
+the full weight and pass to an optimizing subsequential limit.
+\end{proof}
+
+\subsection{The common observation and a reconstruction of raw words}
+
+The contrast in \eqref{e:fourrows} has an intrinsic description
+which also applies when the children have more than two cells.
+For two linear observations on the given space $V$, with kernels
+$T_L,T_R$, their common observation is $J=X\bmod(T_L+T_R)$.
+It is a function of either observation. Its rank $j$ satisfies
+\[
+  \rank(Y_L,Y_R)=\rank Y_L+\rank Y_R-j,\qquad
+  I(Y_L;Y_R)=H(J)+I(Y_L;Y_R\mid J).
+\]
+At an active split, the raw child observations and the unrooted
+child observations give the same common quotient. Indeed any pair
+of child functionals agreeing on $V_v$ must annihilate each child's
+constant line, by evaluating on its separate indicator. Therefore
+the common observation is zero if either child is vacant.
+
+We first symmetrize the old raw law by the global complement at
+every stage. This preserves weakness by concavity because it
+permutes the cosets in each test. All restrictions are then
+complement symmetric. For a symmetric raw word $Z$ and its
+unrooted image $\bar Z$,
+\begin{equation}
+             H(Z)=H(\bar Z)+(\log2)\PP(Z\text{ vacant}).
+ \label{e:raw}
+\end{equation}
+Here vacancy of the raw word means that it is constant.
+
+\begin{lemma}\label{l:join}
+Let $Z_L,Z_R$ be the old raw child words, and let their laws
+already have symmetric replacements with vacancy probabilities
+no greater than before. The two replacements can be coupled so
+the parent vacancy probability does not increase and their mutual
+information is at most $I(Z_L;Z_R\mid J)$ for the old common
+observation $J$.
+\end{lemma}
+\begin{proof}
+Write $q=\PP(J=0)$. Draw two independent labels $J_L,J_R$ with
+the old law of $J$. When both labels are zero, draw the old pair
+conditional on $J=0$. For every other label pair, draw the two
+words independently from their respective old conditional marginals.
+Each word has its old marginal, and its conditional marginal depends
+only on its own label. By the chain rule for relative entropy, the
+mutual information of the two words, each accompanied by its label, is
+\[
+ q^2 I(Z_L;Z_R\mid J=0)\le I(Z_L;Z_R\mid J).
+\]
+The left side is zero if $q=0$. A constant child forces its label
+to be zero. Thus the probability that both children are constant
+with the same bit is $q$ times its old value. The pair is
+complement symmetric, since complement sends both labels to their
+negatives and the old joint law is complement symmetric.
+
+On each side retain the three states constant zero, constant one
+and nonconstant. Independently thin the vacancies to the prescribed
+replacement probabilities, keeping the bit of every retained vacancy.
+Given the resulting states, draw words independently from the
+replacement marginals conditional on their respective states.
+These separate channels preserve the prescribed marginals and joint
+complement symmetry and cannot increase mutual information. Thinning
+cannot create a pair of equal constant children.
+\end{proof}
+
+At the remaining join, two independent reference words must be
+compared with words whose common labels agree. The event that the
+whole block is constant lies in the zero label on both sides.
+The following estimate isolates the contribution of precisely that
+event to the entropy comparison.
+
+\begin{lemma}\label{l:tilt}
+On a finite product let $Q=\bigotimes_i Q_i$. Two distinct factors
+have functions $J_1,J_2$ taking values in the same space. Write
+$q_{iz}=Q_i(J_i=z)$ for these two factors,
+$h_0=\sqrt{q_{10}q_{20}}$, and let $E$ be an event of product mass
+$b$ contained in $\{J_1=J_2=0\}$. For every law $P$ supported
+on $J_1=J_2=:J$ and every $d>0$,
+\[
+ D(P\Vert Q)-H_P(J)+dP(E)
+           \ \ge\ (1-e^{-d})b/h_0
+\]
+when $h_0>0$. When $h_0=0$, the left side is nonnegative and $b=0$.
+\end{lemma}
+\begin{proof}
+Given both labels $z$, compare the conditional law of all factors
+with the product reference conditioned on those labels. The
+decomposition of $D(P\Vert Q)-H_P(J)$ is the mean of these
+conditional divergences plus
+$2\sum_z p_z\log(p_z/\sqrt{q_{1z}q_{2z}})$.
+On $z=0$ exponentially tilt the conditional reference by
+$e^{-d\one_E}$, giving the normalizing constant
+$1-(1-e^{-d})b/h_0^2$. The conditional divergence to the
+tilted law is nonnegative. On all other labels use the
+unmodified reference. Minimizing the resulting expression in
+$(p_z)$ gives
+\[
+ -2\log\left(\sum_{z\ne0}\sqrt{q_{1z}q_{2z}}
+                  +\sqrt{h_0^2-(1-e^{-d})b}\right).
+\]
+The sum before reducing the zero summand is at most one. Its
+reduction is at least $(1-e^{-d})b/(2h_0)$. Use
+$-\log(1-t)\ge t$. Omit null labels. The inequality holds directly for an infinite
+divergence.
+\end{proof}
+
+\subsection{Paying for a common observation}
+
+Fix a stage and cuts $C_i$ with weights $a_i$ from
+\eqref{e:minimax}. On an old node $v$, define $Y_{v,i}$ as
+the unrooted word on $v$ if a member of $C_i$ contains $v$,
+and otherwise as the tuple of unrooted words on the members
+inside $v$. Let $J_{v,i}$ be the common observation of the
+two children's respective $Y$ on the old space $V_v$, with rank
+$j_{v,i}$. Write $Y_i$ for the root observation. We claim that
+a stage law in $\mathcal L$ on the full space satisfies
+\begin{equation}
+ \sum_i a_i H_Q(Y_i)\ \ge\
+       \sum_i a_i\left(H_P(Y_i)+\sum_{v\ {\rm split}}H_P(J_{v,i})\right).
+ \label{e:comparison}
+\end{equation}
+Here $P$ is the given symmetric law and $Q$ is the law to be constructed.
+
+Take as pieces the maximal rooted subtrees $S$ whose old
+restricted space is the full space on their current cells.
+Their maximal roots partition the cells, since a singleton
+has full space and fullness is inherited by restrictions.
+A cut member $D$ that meets more than one piece is a union of
+whole pieces. Call such a block mixed. Each piece lies in at
+most one mixed block of a given cut. For each $S$ let $A_{S,i}$
+be its induced unrooted forest observation. This is the full
+unrooted word on $S$ when it lies in a mixed block.
+Let $w_S$ be the sum of the weights of those mixed occurrences.
+Independently on the pieces take the optimizers of
+\[
+  G_S(\mu)=\sum_i a_i H_\mu(A_{S,i})
+                   +w_S(\log2)\mu(S\text{ vacant})
+\]
+in Lemma~\ref{l:gibbs}, including fair orientations on vacancy.
+This law $Q$ on all raw words belongs to $\mathcal L$. For a
+subtree within a piece use the lemma. For a subtree that is a
+union of pieces, complement of all those pieces preserves their
+product law, and its nonconstancy is an invariant event. For
+cells in different pieces agreement has probability $1/2$ by
+independence and symmetry.
+
+Fix one cut temporarily. Form terminals of a smaller tree from
+all mixed cut blocks $D$ and all whole pieces $S$ outside them.
+On each such $S$ the datum is the joint list $A_{S,i}$, even if
+several cut members lie inside it. On a mixed terminal it is
+$Y_D$, the whole unrooted word. Above these terminals the
+observation at every node is just the pair of its child
+observations. Its joint entropy plus the associated $H(J_{v,i})$
+is at most the sum of their entropies. All common ranks inside
+a full piece vanish, including for partial forest observations.
+Consequently the contribution on the right of \eqref{e:comparison}
+at this cut is bounded by the sum of $H_P(A_{S,i})$ on the
+unmixed pieces and
+\begin{equation}
+                  H_P(Y_D)+\sum_{v\subseteq D}H_P(J_v)
+ \label{e:mixedold}
+\end{equation}
+on each mixed block. The sum runs over all active internal
+nodes in $D$. There the full child observations are used, and
+$J_v$ is also the common observation of the raw children.
+
+Write $Z_S$ for the raw words of the $h\ge2$ pieces inside $D$,
+and let $E$ be the event that their combined word is constant
+with the same bit throughout. By \eqref{e:raw},
+\[
+ H_P(Y_D)=\sum_{S\subset D}H_P(Z_S)
+       -\mathrm{TC}_P((Z_S))-(\log2)P(E),
+ \qquad
+ \mathrm{TC}_P((Z_S)):=\sum_S H_P(Z_S)-H_P((Z_S)).
+\]
+For the product law the same identity has zero total correlation
+and $b=Q(E)=2^{1-h}\prod_{S\subset D}Q(S\text{ vacant})$.
+We show that
+\begin{equation}
+ \sum_{S\subset D}D(P_{Z_S}\Vert Q_{Z_S})
+  +\mathrm{TC}_P((Z_S))-\sum_{v\subseteq D}H_P(J_v)
+                  +(\log2)P(E)\ \ge\ (\log2)b .
+ \label{e:mixedpay}
+\end{equation}
+
+The loss of orientation on $E$ is charged once for the whole block
+$D$. We thus need to retain one common observation inside $D$
+until this loss has been estimated. Choose a lowest nonfull node
+$v_*$ in $D$. Its children are
+whole pieces since each has full space and their parent has a proper subspace.
+The common observation $J_{v_*}$ is nonzero by the dimension
+formula for the two raw restrictions, whose joint determines
+the parent. Keep the entire old joint law at this node. In the
+tree inside $D$ collapse this node and all other full pieces to
+terminal words. Reconstruct upward at every remaining join using
+Lemma~\ref{l:join}. This gives a law $P'$ with precisely the
+same piece marginals, the same protected joint law, and
+$P'(E)\le P(E)$. The total correlation of the pieces is the sum
+of the mutual informations at all their binary joins, by entropy
+telescoping. All reconstructed joins cost at most their old mutual
+information less $H_P(J_v)$. The protected join retains its old cost.
+Therefore
+\[
+  \mathrm{TC}_{P'}((Z_S))-H_P(J_{v_*})\le
+  \mathrm{TC}_P((Z_S))-\sum_{v\subseteq D}H_P(J_v).
+\]
+In particular the left of \eqref{e:mixedpay} dominates
+$D(P'\Vert Q_D)-H_{P'}(J_{v_*})+(\log2)P'(E)$ for the product
+$Q_D$ of the piece references. The protected common quotient has
+two linear realizations, one on each of its full child pieces,
+both annihilating constants. A nonzero scalar functional on
+the quotient gives a nonzero contrast on each child. Thus the
+reference probability of zero on each side is at most $2/3$
+by \eqref{e:atom}, since their full observations have positive weight
+whenever the mixed cut being considered has positive weight.
+The event $E$ implies both realizations are zero. Lemma~\ref{l:tilt}
+with $d=\log2$ bounds the last expression below by $3b/4$,
+which is greater than or equal to $(\log2)b$. This proves
+\eqref{e:mixedpay} simultaneously for the chosen reference
+marginals, allowing the auxiliary law $P'$ to depend on $D$.
+
+Finally sum over the weights. For $Q$ the data on distinct
+terminals are independent. On mixed $D$ its output entropy is
+$\sum_S H_Q(Z_S)-(\log2)b$, and on an unmixed piece it is
+$H_Q(A_{S,i})$. The corresponding piece entropy contributions,
+before the subtractions $(\log2)b$, sum to $\sum_S G_S(Q_S)$,
+by \eqref{e:raw}. The same identity applies to the old marginal
+contributions with $P$ instead of $Q$. Lemma~\ref{l:gibbs}
+bounds the gain on piece $S$ below by $w_S D(P_{Z_S}\Vert Q_{Z_S})$
+because each mixed block sees that piece's full unrooted word.
+For $w_S=0$ only nonnegative gain is needed. These gains pay
+every divergence in \eqref{e:mixedpay}, exactly once per mixed
+block containing its piece. Combining with \eqref{e:mixedold}
+proves \eqref{e:comparison}.
+
+\subsection{Integration in time}
+
+For a cut $C_i$ the difference between its full and old observed
+ranks at a stage equals $\sum_v j_{v,i}$. Indeed at a node where
+the join is not seen the observable is the joint child observable.
+Where it is seen the joint unrooted child words acquire one
+additional linear coordinate, since both separate child indicators
+are in $V_v$. The increment is the same on the full space, and
+the common ranks on the full space are zero. The assertion follows
+by induction from the cells. The old root observations form an
+ordinary test throughout time. For each fixed structural $v$ its
+two child kernels pulled back to the restricted $V_v$ are nested
+below the split, and their sum is a nested kernel for $J_{v,i}$
+containing the constants. Extend it by the whole restricted
+space before the split, when that space is just the constants,
+and pull back to the original rows. This too is an ordinary test.
+Hence the time integral of $H_P(Y_i)$ pays the old observed ranks,
+and each integral of $H_P(J_{v,i})$ pays its common ranks.
+The integration uses these fixed structural tests, allowing
+the pieces in \eqref{e:comparison} to be chosen afresh at each stage. Every chain in \eqref{e:minimax} now has nonnegative
+maximal weighted payoff. Lemma~\ref{l:cutmin} and minimax provide
+one full weak flag for all tests. This proves
+Theorem~\ref{t:restore}.
+
+\section{Large-prime restrictions of close divisors}\label{s:arith}
+
+For an elementary example of a completion, consider the divisors
+$15$ and $17$ of $255$. Above a prime cutoff between $5$ and $17$
+their logarithmic sums are $0$ and $\log17$, farther apart than
+one. Restoring the two smaller primes brings them within
+$\log(17/15)$ of each other. For $k$ rows, the smaller primes
+can supply a different displacement to every row.
+
+The fixed-range upper argument of Ford, Green and Koukoulopoulos
+\cite[Section~4]{fgk} records the first columns that increase the
+span and counts the remaining columns in quotient classes. Hou and
+Zhao \cite[Lemma~5]{hz} and Mao and Song \cite[Theorem~3.6]{ms}
+give probability bounds uniform in a prescribed vector of
+translations for the logarithmic random set. Here the lower
+prime choices range over all possible completions. We keep them
+in the count and mark the height by which the upper restrictions
+are already pairwise distinct. This is the condition defining
+$s_k$ in Lemma~\ref{l:arithmetic-one-range}.
+
+We use a Poisson random measure $\mathcal P$ with atoms at $\log p$,
+for primes $p$, of respective intensities $1/p$. Its counts at
+different primes are independent. Copies at an atom are distinguished
+when subsets of the process are counted. Write $\mu$ for its intensity
+measure. Hou and Zhao use independent geometric prime exponents to
+pass between integers and the logarithmic random set
+\cite[Section~3]{hz}. We compare the middle range of prime factors
+directly with the process on the prime logarithms.
+
+\begin{lemma}\label{l:prime-log-measure}
+For $z\ge2$ we have
+\[
+ A(z):=\sum_{p\le z}\frac{\log p}{p}=\log z+O(1),\qquad
+ \sum_{p\le z}\frac1p=\log\log z+B+O(1/\log z)
+\]
+with a constant $B$. For $v\ge1$, $h\ge0$ and an absolute $C$,
+\[
+ \frac{h-C}{v+h}\le\mu([v,v+h])\le\frac{h+C}{v}.
+\]
+The bounds also hold for half-open intervals after increasing $C$.
+\end{lemma}
+\begin{proof}
+For an integer $m\ge1$ the primes in $(m,2m]$ divide
+$\binom{2m}{m}\le4^m$. Summing the logarithmic bound on dyadic
+intervals gives $\sum_{p\le z}\log p\ll z$. Summing the same bound
+over prime powers gives $\sum_{d\le z}\Lambda(d)\ll z$, where
+$\Lambda(p^a)=\log p$ for $a\ge1$ and $\Lambda(d)=0$ otherwise.
+Since $\sum_{d\mid n}\Lambda(d)=\log n$, summation up to $z$ gives
+\[
+ z\sum_{d\le z}\frac{\Lambda(d)}{d}
+ =\log(\lfloor z\rfloor!)+O(z)=z\log z+O(z)
+\]
+by integral comparison. The contribution of powers $p^a$, $a\ge2$,
+to the sum on the left after division by $z$ is bounded by
+$\sum_{n\ge2}\log n/[n(n-1)]$. This proves the estimate for $A$.
+Partial summation gives the second estimate, since the integral of
+$1/[t(\log t)^2]$ from $z$ to infinity is $1/\log z$. The interval
+bounds follow by taking the difference of $A$ at $e^{v+h}$ and $e^v$
+and bounding the weight $\log p$ between $v$ and $v+h$.
+\end{proof}
+
+\begin{lemma}\label{l:arithmetic-coupling}
+Let $N$ be uniform on $1,\ldots,\lfloor x\rfloor$, put
+$T=\log\log x$, $G=(\log T)^2$, $y=x^{1/G}$, and
+$U=\sqrt{\log T}$. With probability tending to one, the prime
+factors of $N$ in $\exp(e^U)<p\le y$ can be coupled exactly to
+$\mathcal P$ on the corresponding interval of prime logarithms,
+with a single copy of every retained prime. The total number of
+omitted prime factors of $N$, counted with multiplicity, is
+$o(\log T)$ in probability.
+\end{lemma}
+\begin{proof}
+First couple all valuations at $p\le y$ to independent geometric
+variables $Z_p$ with $\PP(Z_p\ge a)=p^{-a}$ for integers $a\ge0$.
+Set $q=\prod_{p\le y}(1-1/p)$. Partition these primes into $J=O(T)$
+blocks according to the intervals
+$(2^{-j-1}\log y,2^{-j}\log y]$ for $\log p$, $j\ge0$, stopping
+when the lower end is below $\log2$. In each block the sum of $1/p$
+is at most an absolute $C_0$ by Lemma~\ref{l:prime-log-measure}.
+Thus its product $q_j=\prod(1-1/p)$ is bounded below by a positive
+absolute constant, using $-\log(1-1/p)\le2/p$.
+
+Take an even integer $r=2\lceil\log T\rceil$. For an integer $n$
+let $\omega_j(n)$ count the distinct prime divisors in block $j$,
+and let $B_j^+$ and $B_j^-$ denote the partial sums of
+$\sum_i(-1)^i\binom{\omega_j(n)}i$ through $r$ and $r-1$.
+The binomial identity for alternating partial sums gives
+$B_j^-\le I_j:=\one_{\omega_j(n)=0}\le B_j^+$, with
+$B_j^+-B_j^-=\binom{\omega_j(n)}r$. In particular
+\[
+ 0\le\prod_j B_j^+-\prod_j I_j
+ \le\sum_j\binom{\omega_j(n)}r\prod_{h\ne j}B_h^+.
+\]
+Expanding the first product or any summand on the right in
+divisibility indicators gives coefficients of absolute value at
+most one on distinct squarefree $d\le D=y^{2r}$. Indeed, block
+$j$ contributes at most $r$ primes, each of logarithm at most
+$2^{-j}\log y$, so $\log d\le r(\log y)\sum_{j\ge0}2^{-j}=2r\log y$.
+Under uniform $n\le X$, $X\ge2$,
+the mean of each indicator differs from $1/d$ by $O(1/X)$.
+Under independent prime indicators of means $1/p$ its mean is
+exactly $1/d$. For these independent variables
+$\EE\binom{\omega_j}r\le C_0^r/r!$ and
+$q_j\le\EE B_j^+\le q_j+C_0^r/r!$.
+The product bound and block independence now give, uniformly in $X$,
+\[
+ \PP_{n\le X}(p\nmid n\text{ for every }p\le y)
+   =q(1+o(1))+O(JD/X).
+\]
+Indeed $J C_0^r/r!=o(1)$ and the $q_j$ are bounded below.
+
+The independent product $\prod_{p\le y}p^{Z_p}$ takes a given
+$y$-smooth value $m$ with probability $q/m$. The exact small-prime
+part of $N$ equals $m$ if $m\mid N$ and $N/m$ has no prime factor
+at most $y$. Using the last estimate with $X=x/m$, its probability
+for $m\le\sqrt x$ is $(q/m)(1+o(1))+O(JD/x)$. The summed absolute
+error over these $m$ is $o(1)+O(JD/\sqrt x)=o(1)$ because
+$D=x^{2r/G}=x^{o(1)}$. Both small-prime products exceed $\sqrt x$
+with probability $O(1/G)$ by Markov's inequality, since each
+expected logarithm is at most $\sum_{p\le y}(\log p)/(p-1)\ll\log y$.
+The resulting total variation distance tends to zero. Coupling the
+common probability masses gives the asserted geometric comparison.
+
+Above $p_0=\exp(e^U)$ the geometric and Poisson laws at $p$ differ
+in total variation by $O(p^{-2})$, by comparing the masses at zero
+and one and the probability of two or more. The sum of these errors,
+including repeated factors in this range, is $o(1)$. Finally
+$\PP(p^a\mid N)\le p^{-a}$ and Lemma~\ref{l:prime-log-measure}
+give $O(1+U+\log G)$ for the mean number of omitted factors.
+Division by $\log T$ and Markov's inequality finish the proof.
+\end{proof}
+
+\subsection{An upper bound on the number of continuations}
+
+At $s\ge0$ let $C(s)$ be the largest number of subsets of the
+points of $\mathcal P$ in $[1,e^s]$ whose sums lie in one interval
+of length one. We may take closed intervals here for an upper bound.
+
+\begin{lemma}\label{l:arithmetic-one-range}
+Fix $k\ge2$ and $s_k<\rho<1$. With probability
+$1-O_{k,\rho}(e^{-c s})$, for some $c=c(k,\rho)>0$ and $s\ge1$,
+there is no family of $k$ subsets of $\mathcal P\cap[1,e^s]$
+whose sums have diameter at most one and whose restrictions to
+$(e^{\rho s},e^s]$ are all distinct. In particular
+$C(s)\le(k-1)C(\rho s)$ on this event.
+\end{lemma}
+\begin{proof}
+For a fixed small $\xi>0$, except with probability
+$O_\xi(e^{-c_\xi s})$, every interval of log coordinates
+$(a,b]\subseteq[0,s]$ contains at most $b-a+\xi s$ points.
+The same bound with an extra absolute constant covers the whole
+range. Indeed the mean of each prefix count from $1$ to $e^b$ is
+$b+O(1)$ by Lemma~\ref{l:prime-log-measure}. For its mean $m(b)$
+and count $N(b)$, $\exp(\lambda N(b)-(e^\lambda-1)m(b))$
+is a mean-one martingale by independent increments. Applying its
+maximal inequality for both signs of a sufficiently small fixed
+$\lambda$, depending on $\xi$, bounds the largest centered prefix
+deviation by $\xi s/3$ with the claimed exceptional probability.
+Subtract prefixes to obtain the assertion for large $s$.
+
+For each point of a witness write its $k$ Boolean membership bits
+as a column. Read the points in decreasing order, breaking ties in
+any order, and mark a pivot whenever its column enlarges the span
+of the constant and all previous columns. Let $u_1,\ldots,u_r$ be
+the marked sizes, where $r\le k-1$, and $V_j$ the span through
+pivot $j$, with $V_0=\Q\one$. Round $(\log u_j)/s$ upwards to the
+grid of step $1/\lceil s\rceil$ ending at $1$, obtaining $c_j$,
+and set $c_{r+1}=0$. Each residual point in
+$(e^{s c_{j+1}},e^{s c_j}]$ has column in $V_j$, and columns above
+the first layer are constant. There is no prime logarithm equal to
+$1$. The span of the columns with point size exceeding $e^{\rho s}$
+already distinguishes all rows, so some separating $V_j$ has
+$c_j\ge\rho$. Let $P_j$ be the residual empirical law in layer
+$j$, using the zero word for an empty layer.
+
+On the count event there are $s^{O_k(1)}$ possibilities for the
+pivot columns, their rounded heights, and the counts of individual
+Boolean words in every layer (for bounded $s$ one may replace $s$
+by $2+s$). Uniformly for these data the minimum over tests of the
+zero-endpoint payoff \eqref{e:pay} is at most $-\delta$ for some
+$\delta=\delta(k,\rho)>0$. To see this, fix one of the finitely
+many ambient flags. Its ordered clocks and stage probability
+simplexes are compact, including the closed condition that a
+separating space be born at or above $\rho$. For tests it suffices
+to keep one representative of each attainable list of dimensions
+and partitions of the finite stage alphabets into cosets. The
+minimum of their continuous payoffs is continuous. A nonnegative
+maximum on this compact set would give $s_k\ge\rho$.
+
+Fix a type and its minimizing test $W$. Integrate the pivot
+positions against $\prod_{i=1}^r d\mu(u_i)$, leaving an independent
+residual Poisson process. This insertion identity bounds the
+probability of a witness by the expected number of ordered tuples
+of distinct point copies that can serve as pivots. To verify the
+identity, condition on a Poisson count $n$ and use the $n$ independent
+positions of law $\mu/\mu([1,e^s])$. Multiplying by the falling
+factorial $(n)_r$ and summing replaces $n$ by $n-r$ in the Poisson
+series and gives the displayed product measure. This argument also
+holds at atoms. Only residual configurations satisfying the upper
+count bounds need be considered, since deletion decreases counts.
+
+Given such residual positions, specifying the coset at every
+position in layer $j$ has at most
+$\exp(|S_j|H(P_j\bmod W_j))$ possibilities by the multinomial
+bound, where $S_j$ is the set of residual point copies in the layer.
+Thus the logarithm of the total coset cost is at most
+$s\sum_j(c_j-c_{j+1})H(P_j\bmod W_j)+O_k(\xi s+1)$.
+Subtract a fixed Boolean representative for each coset.
+Modulo constants, the remaining residual sum has components in
+a basis adapted to the nested $W_j$. A coordinate first appearing
+in $W_j$ is bounded in absolute value by $O_k(s e^{s c_j})$
+because it receives contributions only from that layer and the lower ones.
+The bases are fixed for the finite list of test representatives.
+Covering these ranges with unit cubes consequently costs at most
+\[
+ \exp\!\left(s\sum_j c_j(\dim W_j-\dim W_{j-1})
+                    +O_k(\log(2+s))\right).
+\]
+This is a cover of real sums and uses no lattice condition on the
+prime logarithms.
+
+In one such cube the residual sums modulo constants have bounded
+uncertainty in each standard row contrast against the first row.
+Some $r$ such contrasts of the pivot columns give an invertible
+integer matrix. Bounded diameter of the final sums then places
+each pivot $u_j$ in an interval of length $O_k(1)$, with location
+determined by the coset list, the cube and the residual positions.
+Also $u_j\ge e^{s c_j-1}$ by rounding. By
+Lemma~\ref{l:prime-log-measure} the product of the $r$ pivot
+intensities on these intervals is $O_k(\exp(-s\sum_jc_j))$,
+including bounded ranges at the bottom of the grid.
+Since each pivot raises dimension by one, telescoping gives
+\[
+ \sum_j c_j(\dim W_j-\dim W_{j-1})-\sum_j c_j
+  =-\sum_j(c_j-c_{j+1})\dim(V_j/W_j).
+\]
+Summing over the types and integrating the residual process yields
+$\exp(-\delta s+O_k(\xi s+\log(2+s)))$ on the count event.
+Choosing $\xi$ small enough proves the probability estimate.
+Finally each fixed upper restriction of a family in one interval
+allows at most $C(\rho s)$ lower completions by translation.
+\end{proof}
+
+\subsection{Iteration and the normal order}
+
+We now iterate the one-range estimate. Use the coupling in Lemma~\ref{l:arithmetic-coupling} and set
+$S=\log\log y=T-\log G$. A divisor of the omitted part of $N$ can
+be fixed in at most $2^{o(\log T)}$ ways in probability. After it
+has been fixed, the retained divisors are subsets of the coupled
+point process and their logarithms are the corresponding subset sums.
+Thus $\log\Delta(N)\le\log C(S)+o(\log T)$ in probability.
+
+For fixed $s_k<\rho<1$ apply Lemma~\ref{l:arithmetic-one-range}
+at the successive times $S,\rho S,\rho^2 S,\ldots$ down to the
+last time at least $U$. There are at most
+$1+\log(S/U)/\log(1/\rho)$ such times. The total exceptional
+probability is $O_{k,\rho}((1+\log T)e^{-cU})=o(1)$. The number
+of points up to $e^U$ is $O(U)$ with probability tending to one,
+by the Poisson exponential bound. Consequently
+\[
+ \frac{\log\Delta(N)}{\log T}
+ \le\frac{\log(k-1)}{\log(1/\rho)}+o(1)
+ \qquad\text{in probability as an upper bound.}
+\]
+Let $\rho\downarrow s_k$ and take the infimum over $k$ with $s_k<1$.
+
+For the other direction fix a strict separating flag on $k$ rows
+at endpoint $b>0$ and choose $0<b'<b$. We may first mix with
+an arbitrarily small proportion of the auxiliary strict clock, so
+that all birth times are distinct and the endpoint still exceeds
+$b'$. By
+Lemma~\ref{l:realization}, in $(e^{b's},e^s]$ the prime-log
+process has $k$ distinct subsets of sums of diameter at most a
+fixed constant $L$ with probability tending to one as $s\to\infty$.
+Here $L$ may depend on the fixed flag and on $b'$. Use the disjoint
+intervals with upper times $s_j=S(b')^j$, $j=0,\ldots,m-1$,
+where $m=\lfloor\log(S/U)/\log(1/b')\rfloor$. Every lower time
+is at least $U$ and the least upper time tends to infinity. Hence
+the expected fraction of failed intervals tends to zero, by
+uniformity of an ordinary limit over all $s\ge U$. Markov's
+inequality shows that the number of successes is $m-o(m)$ in
+probability. On the coupling event all their primes divide $N$
+with exponent one. Taking one subset from each successful interval
+and uniting them gives $k^{m-o(m)}$ distinct divisors by disjoint
+supports and unique factorization. Their logarithms have diameter
+at most $Lm$. This set is covered by at most $\lceil Lm\rceil+2$
+intervals of the form $(u,u+1]$, so some unit interval contains
+at least $k^{m-o(m)}/(\lceil Lm\rceil+2)$ of these divisors.
+Since $\log(S/U)=(1+o(1))\log T$, this gives the lower bound
+$\log k/\log(1/b')$ for $\log\Delta(N)/\log T$ in probability.
+Take $b'$ up to the endpoint and then take the supremum over the
+strict flags.
+
+Combining the two arithmetic estimates with the
+comparison in Section~\ref{s:open} proves \eqref{e:alpha}.
+With probability $1-o(1)$ we have $N>\sqrt{x}$, so that
+$\log\log N=T+O(1)$ and $\log\log\log N=\log T+o(1)$.
+This proves the convergence in density in Theorem~\ref{t:main}.
+For the equivalent pointwise statement let $E_j$ be the exceptional
+set at tolerance $1/j$. Choose increasing integers $x_j$ such that
+$\#(E_j\cap[1,x])\le x/j$ for every $x\ge x_j$. Delete $E_j$
+on $[x_j,x_{j+1})$. For $x_j\le x<x_{j+1}$ all the deleted
+integers up to $x$ belong to $E_j$, since $E_i\subseteq E_j$
+for $i\le j$. The deleted set has density zero and the exponent
+converges on its complement.
+
+\section{Effective evaluation of the variational exponent}\label{s:eval}
+
+The supremum in \eqref{e:alpha} provides approximations from
+below and the infimum provides approximations from above. To turn
+these formulas into an algorithm, two errors must be controlled.
+For a fixed $k$, a strict flag certifies feasibility and compactness
+gives a uniform certificate of failure beyond the endpoint.
+For varying $k$, Lemma~\ref{l:opening} bounds the loss of using
+only $s_k$. We give the two estimates in that order.
+
+For a rational trial $d>b_k$, the minimum payoff over tests is
+strictly negative on every separating flag with endpoint $d$.
+A nonnegative minimum would give a weak flag, hence strict
+endpoints approaching $d$. The ordered clocks at fixed endpoint
+and stage probability simplexes form compact rational polytopes,
+so there is a uniform negative gap. Subdivide them into rational
+boxes, discarding boxes disjoint from the domain by rational
+linear feasibility. Enclose the finitely many payoffs by rational
+intervals with outward rounding. The oscillation of $-x\log x$
+on an interval of width $h\le1$ is at most $h(2-\log h)$. For
+logarithms of positive rationals one can use range reduction
+and the convergent series for $\log((1+z)/(1-z))$. Refining the
+boxes and the arithmetic eventually certifies negativity everywhere.
+For $d<b_k$, enumeration of rational strict flags with endpoint
+larger than $d$ eventually succeeds, by continuity and the finite
+list of proper tests.
+
+For $s_k$, impose endpoint zero and require the first separating
+space to have birth at or above the rational trial $d$. These
+are finitely many compact rational domains, establishing also
+attainment in its definition. The same negative-gap search succeeds
+for $d>s_k$. For $d<s_k$, mix a weak flag separating strictly
+above $d$ with the auxiliary strict clock. It still separates
+strictly above $d$ and has a positive endpoint. Rational strict
+flags of this kind can be enumerated, and each gives a valid
+lower certificate by filling to zero. Running both strict
+comparisons on all rational trials in parallel gives brackets
+of arbitrarily small positive width for each finite endpoint, even
+if it coincides with one of the rational trial values.
+
+For an explicit stopping rule, restriction gives a flag with
+exactly $k$ rows distinguished at $s_k$. The proof of
+Lemma~\ref{l:opening} applies to those rows, yielding
+$b_{\lfloor k/5\rfloor}\ge s_k/8$ for $k\ge10$.
+The variational formula \eqref{e:alpha} gives \eqref{e:singlek}. Write
+$D=\log(1/s_k)\ge\log(k/2)/a_0$, by the three-row depth bound.
+The width in \eqref{e:singlek} is at most
+\begin{equation}
+ \frac{\log10}{D}+\frac{(\log k)\log8}{D^2}
+ \ \le\
+ \frac{a_0\log10}{\log(k/2)}
+ +\frac{a_0^2(\log k)\log8}{\log^2(k/2)} .
+ \label{e:width}
+\end{equation}
+Choose $k$ large enough that the last expression is less than
+$\varepsilon/2$, with rational interval arithmetic. For this one
+$k$, compute successively finer certified brackets for $s_k$.
+Use the lower endpoint in the left side of \eqref{e:singlek}
+and the upper endpoint in its right side, rounding both ratios
+outwards. Since $0<s_k<1$ and their actual separation is already
+less than $\varepsilon/2$, the resulting rational bounds reach
+width less than $\varepsilon$ in finite time. Theorem~\ref{t:restore}
+also allows the finite optimization for $s_k$ to be restricted to
+full partition clocks.
+
+\section{A certified lower bound from sixteen types of splits}
+\label{nl:section}
+
+In the binary flags of Ford, Green and Koukoulopoulos every cell
+at a given level divides at the same height
+\cite[Definition~3.8 and Sections~9--10]{fgk}. The lower formula
+in \eqref{e:alpha} also allows the two branches of a cell to
+divide at different heights. The problem is to produce many leaves
+above a small height $\theta$ while every contrast still earns
+enough entropy during its lifetime. Two siblings born at different heights face different
+opportunities for gaining entropy. When the earlier one is born,
+its sibling has yet to split. When the later one is born, its
+sibling has already split. To choose the relative heights of a
+node's children, we remember whether the node was the earlier or
+later sibling and the preceding three turns on its path. This gives
+eight sibling pairs, or sixteen types, with the same rules recurring
+down the tree.
+Correlating the choices within a pair can increase the entropy at
+its parent. One entropy budget per type certifies feasibility,
+and a spectral-radius equation counts the resulting leaves.
+
+\begin{proposition}\label{nl:result}
+Let $d$ be the positive solution of $\rho(M(d))=1$, where the
+eight-by-eight matrix $M$ is given in \eqref{nl:matrix}. Then
+\[
+      0.35553850187<d<0.35553850189,\qquad d\le\alpha .
+\]
+\end{proposition}
+
+\subsection{The split tree and its parameters}
+
+A node denotes a split. Its type is $i\in\{0,\ldots,15\}$ and its
+height is $\tau$. The root is of type $0$ at height $1$. The left
+and right child splits have respective types and heights
+\[
+ L(i)=2(i\bmod 8),\quad R(i)=L(i)+1,\qquad
+ A_i\tau,\quad B_i\tau,\qquad B_i=A_i\kappa_{i\bmod8}.
+\]
+Write $K_{2j}=\kappa_j$, $K_{2j+1}=A_{2j}/\kappa_j$ for $0\le j<8$.
+At a nonroot node of type $i$, $K_i$ is the height of the next
+split in its sibling's subtree, in units of its own split height. For an even type it is
+the birth of the younger sibling. For an odd type it is the first
+child split of the older sibling, since $\max_i A_i<\min_j\kappa_j$.
+The baseline probability used by an active type $i$ at local time
+$s=t/\tau$ is
+\[
+ P_i(s)=q_{i,m_i(s)},\qquad
+ m_i(s)=\one_{s<K_i}+\one_{s<A_i}+\one_{s<B_i}.
+\]
+The adjustments $h_i$ and the baseline parameters $q_{im}$ are
+extended with period eight in $i$.
+All displayed parameters are exact rationals.
+\[
+\begin{array}{c|rrrr}
+j&A_{2j}&A_{2j+1}&\kappa_j&\delta_j\\ \hline
+0&.17008802076989&.17445386687652&.68401572231443&.003668869499\\
+1&.16936398844577&.17388142632538&.66471379404345&.004076944109\\
+2&.17009530835310&.17438951025087&.68921875368253&.003631054748\\
+3&.16945123639388&.17388691615311&.66892994497063&.004049115897\\
+4&.17008831268608&.17445384071325&.68393223772060&.003668869499\\
+5&.16936298668175&.17388152290720&.66497954537033&.004076944109\\
+6&.17009683577282&.17438937491771&.68877984539362&.003631054748\\
+7&.16945134069206&.17388690617701&.66890195988505&.004049115897
+\end{array}
+\]
+{\small
+\[
+\begin{array}{c|rrrr|r}
+i&q_{i0}&q_{i1}&q_{i2}&q_{i3}&h_i\\ \hline
+0&.367906599960&.378382774055&.378609457829&.382868703940&.005753434443\\
+1&.367906988749&.370803262020&.371785782457&.371946413457&.004550810468\\
+2&.367995493671&.379097176841&.379119849971&.383989643006&.006430082793\\
+3&.367881403353&.371076969007&.372210929174&.372308612632&.004990980423\\
+4&.367879728139&.378327161781&.378614497836&.382778568605&.005690650612\\
+5&.368044463559&.370926681912&.371881452912&.372061709237&.004521571727\\
+6&.367880216220&.378897274167&.378922330993&.383794414115&.006384472359\\
+7&.367881830045&.371054243031&.372198860777&.372294368723&.004974131778
+\end{array}
+\]}
+
+\subsection{A law on the active cells}
+
+At each $t>0$ only finitely many splits have height at least $t$.
+A pattern is the unrooted Boolean word on the current cells of a
+subtree. A split is eligible if it is active and its two child
+patterns are vacant. An eligible split can choose a vacant parent
+or one of two opposite orientations. If exactly one child pattern
+is vacant, its absolute bit is fair. If neither is vacant the two
+raw representatives determine the joined word.
+
+Generate a pair of sibling patterns from the bottom up. Generate
+the proper descendant forests of the two siblings independently,
+using this same pair rule within each forest. Let $l,r$ be the
+eligibility probabilities of the siblings and $p,q$ their baseline
+probabilities at their respective local times. Given eligibility
+of the left sibling, its conditional probability of choosing a
+vacant rather than an oriented parent is
+\[
+ p_1=p-h_L(1-r)\quad\hbox{if the right is eligible},
+ \qquad p_0=p+h_Lr\quad\hbox{otherwise},
+\]
+where $L$ is the left sibling's type. On the right, of type $R=L+1$,
+use $q_1=q-h_R(1-l)$ and $q_0=q+h_R l$.
+At double eligibility use the product table for the two vacancy
+indicators with marginals $p_1,q_1$, subtract $\delta_{L/2}$ from
+both diagonal entries and add it to both off-diagonal entries.
+Conditional on the indicators, all nonzero orientations are fair
+and independent. In every other case use conditionally independent
+joins. An inactive split supplies a vacant pattern and is ineligible.
+At the root use its own baseline probability directly, with a fair
+absolute bit on vacancy. The parameters give adjusted probabilities
+in $[.35,.40]$, and $\max_j\delta_j<.0041$, so every entry of each
+modified table is positive.
+
+Let $v_i(s),z_i(s)$ be the vacancy and eligibility probabilities of
+a split of type $i$. For $s>1$ these are $(1,0)$. For $s\le1$ write
+\[
+ (x,l)=(v_L,z_L)(s/A_i),\qquad(y,r)=(v_R,z_R)(s/B_i),
+ \qquad L=L(i),\ R=R(i).
+\]
+Use $p=P_L(s/A_i)$, $q=P_R(s/B_i)$ in the pair rule above. Averaging
+over the independent opposing forest gives $(1-r)p_0+rp_1=p$ and
+the analogous identity for $q$. Hence
+\begin{equation}
+ z_i(s)=xy-lr\{pq-p_1q_1+\delta_{i\bmod8}\},\qquad
+ v_i(s)=P_i(s)z_i(s).
+ \label{nl:vacancy}
+\end{equation}
+If both children are active their simultaneous vacancy requires
+double eligibility and has probability $lr(p_1q_1-\delta_{i\bmod8})$.
+If a child is inactive, $lr=0$ and simultaneous vacancy has
+probability $xy$. These cases prove the recursion.
+
+At time $t=1/10$ the two children of the root have split, and
+their four children have yet to split. Both sibling choices are
+eligible. Relative to independent choices with the same marginals,
+the adjustment $\delta=\delta_0$ moves mass $\delta$ from double
+vacancy and $\delta$ from double nonvacancy to the two cases
+with exactly one vacancy. Thus the root gains at least
+$\delta(2\log2-\log3)=\delta\log(4/3)$ in conditional entropy,
+since a single vacancy gives one fair bit and a double vacancy
+gives at most three outcomes. The entropy loss in combining the
+children is their mutual information, at most $\delta^2/(.35\cdot.60)^2<\delta/10$ by
+$\log x\le x-1$.
+The adjustment therefore increases the entropy of the unrooted
+word on these four cells.
+
+\subsection{Entropy allocated to a split}
+
+Use the leftmost descending path of a cell as its representative.
+The contrast $Z_v$ at split $v$ is the bit of its right child's
+representative minus that of its left child's representative.
+Order the active splits by decreasing height, breaking ties
+consistently. Given the representative bit at the root, each
+contrast determines the other child representative bit. The
+contrasts therefore form linear coordinates modulo constants. Put
+\[
+ G(p)=-p\log p-(1-p)\log((1-p)/2).
+\]
+Write $I_j(p,q)$ for the mutual information of the two indicators
+with marginals $p,q$ and the $\delta_j$ adjustment. For split type
+$i$, let $i'$ be its sibling type, $j=\lfloor i/2\rfloor$, and set
+$s'=s/\kappa_j$ if $i$ is even, $s'=s\kappa_j$ if it is odd. Write
+\[
+ z=z_i(s),\quad z'=z_{i'}(s'),\quad
+ u_0=P_i(s)+h_i z',\quad
+ u_1=P_i(s)-h_i(1-z'),\quad
+ u'_1=P_{i'}(s')-h_{i'}(1-z).
+\]
+The $x,y$ below are the vacancy probabilities of the two children
+of the target split in \eqref{nl:vacancy}. Its contrast entropy
+conditional on all later active contrasts is at least
+\begin{align}
+ H_i(s)={}&z\{(1-z')G(u_0)+z'G(u_1)\}
+                   +(x+y-2z)\log2  \notag\\
+          &-\one_{\{i\ {\rm even},\ s<\kappa_j\}}
+                   zz'I_j(u_1,u'_1).
+ \label{nl:entropy}
+\end{align}
+Values at the finitely or countably many boundaries never affect
+our integrals.
+
+To see which observations enter this conditional entropy, every
+strict ancestor of the target is earlier, as is every sibling of
+such an ancestor. Indeed a descendant split lies at height at most
+$\max_i A_i$ times its ancestor's height, and $\max_i A_i<\min_j
+\kappa_j$. At each ancestral pair both joins are therefore absent
+from the conditioning. After marginalizing these joins the two
+proper descendant forests are independent by construction. Descending
+the ancestral path shows that outside observations do not change the
+conditional entropy within the target pair.
+
+Now condition additionally on the two complete proper descendant
+forests of this pair. They determine the patterns below each
+sibling. On target eligibility the conditional entropy of its join
+is the first term of \eqref{nl:entropy} after averaging, since
+eligibility events in the two forests are independent. Exactly one
+vacant child contributes a fair bit, giving the second term. A
+younger active sibling has its own contrast among the conditioning
+variables. Given the forests, the resulting debit is supported on
+double eligibility. There the zero indicators of the two sibling contrasts have mutual
+information $I_j$, and the conditional fair signs are independent.
+Only the older (even) sibling incurs this debit. At the actual root
+the same bound, using a virtual sibling, follows from
+$G(P_i(s))\ge(1-z')G(u_0)+z'G(u_1)$ and nonnegativity of the debit.
+
+\subsection{The rational entropy certificate}
+
+Set $c_0=1/4000$. The following table gives a lower certificate for
+$\int_{c_0}^1 H_i(s)\,ds-1$. Its last row gives the floors of the
+certified lower estimates multiplied by $10^{12}$.
+\[
+\begin{array}{c|rrrrrrrr}
+i&0,8&1,9&2,10&3,11&4,12&5,13&6,14&7,15\\ \hline
+\text{intervals}&56&60&56&60&56&60&56&60\\
+\text{scaled surplus}&29&29&29&30&30&30&29&29
+\end{array}
+\]
+Here are precise instructions for verifying the table by rational
+arithmetic. Start the type-$i$ tree at height one and the sibling
+tree at relative height $\kappa_j$ (even $i$) or $1/\kappa_j$ (odd
+$i$). At a node of type $a$ and height $w\ge c_0$, record $w,wK_a$
+and recur at $wA_a,wB_a$. Stop if $w<c_0$. Restrict the union of
+the recorded points to $[c_0,1]$ and adjoin both endpoints. These
+points include all discontinuities in \eqref{nl:vacancy} and
+\eqref{nl:entropy}, since both child births are recorded and
+$K_a,A_a,B_a<1$. Evaluate at the rational midpoint of each interval
+and sum its length times the lower bound for \eqref{nl:entropy}.
+
+For positive rational $y$ put $v=(y-1)/(y+1)$. The $N$-term
+sum $2\sum_{m=0}^{N-1}v^{2m+1}/(2m+1)$ approximates $\log y$ with
+absolute error at most
+$2|v|^{2N+1}/((2N+1)(1-v^2))$. Use $N=40$ for each logarithm
+in $G$, $I_j$ and $\log2$, rounding the argument first and the
+result last outwards on the mesh $10^{-22}$. For the lower bound
+on $G$ use upper bounds on $\log p$ and $\log((1-p)/2)$.
+For the upper bound on $I_j$ sum each positive cell mass times
+the upper bound on the log of its ratio to its product mass.
+Use the lower bound on $\log2$ in \eqref{nl:entropy}. These are the
+operations of the accompanying \texttt{sixteen\_certificate.py}.
+
+The table also controls termination at any intermediate height.
+Let $\delta_* =\max_j\delta_j$. The inequality $\log x\le x-1$
+gives
+\[
+ I_j(p,q)\le \frac{\delta_*^2}{p(1-p)q(1-q)}
+          \le \frac{\delta_*^2}{(.35\cdot .60)^2}
+ \quad(.35\le p,q\le .40).
+\]
+Using the same series bounds gives
+\[
+ \min\{G(.35),G(.40)\}-\frac{\delta_*^2}{(.35\cdot .60)^2}>1,
+ \qquad (1+\max_{a,m}q_{am})\log2<1.
+\]
+Concavity of $G$ thus gives $H_i(s)\ge0$ for every $0<s<1$.
+When $A_i<s<1$ both children are unsplit, so $z=1$ and $H_i(s)>1$.
+When $s<A_i$ the left child is active, whence $x\le\max q_{am}$
+and $H_i(s)\le(x+y)\log2<1$ by $G\le\log3<2\log2$.
+Therefore $\int_r^1(H_i(s)-1)\,ds$ is positive for $A_i\le r<1$,
+and on $[c_0,A_i]$ its minimum is at $c_0$. Together with the
+table and $H_i\ge0$ this proves
+\begin{equation}
+ \int_r^1 H_i(s)\,ds>1-r\quad(0\le r<1),\qquad
+ \int_r^1 H_i(s)\,ds>1\quad(0\le r\le c_0).
+ \label{nl:budget}
+\end{equation}
+
+\subsection{Weak flags from finite truncations}
+
+Fix $0<\theta<1$ and perform all splits of height at least
+$\theta$. Take the leftmost path in each of the $k$ frontier cells
+as a labelled row. At time $t\in[e,1]$, with $e=c_0\theta$, first
+draw the active tree law above and read it on these rows. This
+gives a Boolean word in the full partition space on the current
+target cells. A target contrast equals the corresponding contrast
+in the full active tree by the choice of paths. Conditioning just
+on the later target contrasts can only increase the lower bound
+\eqref{nl:entropy}. Average the raw laws within each stage of the
+target flag. Entropy concavity preserves every integrated lower
+estimate for the quotient entropy of a fixed test on that stage.
+
+Here is the bookkeeping for an arbitrary nested test $W$, modulo
+constants. Use the chronological contrast coordinates and take the
+rightmost nonzero coordinate as the pivot in elimination. The set
+of pivot indices consists of all rightmost nonzero indices of
+vectors in $W$, and increases when $W$ increases. The quotient has
+one coordinate per nonpivot index $i$, equal to $Z_i$ plus a linear
+combination of later contrasts. By the reverse entropy chain rule
+its entropy is at least the sum over nonpivots of $H(Z_i\mid
+\text{all later contrasts})$. Indeed conditioning on the later
+contrasts determines the later quotient coordinates and the additive
+term in the $i$th one.
+
+A nonpivot index born at height $\tau$ and first pivoted at
+$r\le\tau$ costs rank $\tau-r$ up to that closure. It earns at
+least $\tau\int_{r/\tau}^1H_i(s)\,ds$, covering the cost by
+\eqref{nl:budget}. An index still unpivoted at $e$ costs
+$(\tau-e)+e=\tau$ including the terminal debit, and $e/\tau\le
+c_0$ gives the stronger estimate in \eqref{nl:budget}. Immediate
+pivots cost zero, including at tied births. Summation proves
+weakness at the positive endpoint $e$. Strict approximation on this
+finite flag, as in Section~\ref{s:flags}, therefore gives $b_k\ge c_0\theta$.
+
+\subsection{Growth of the tree}
+
+For $0\le p<8$ put $j=2p\bmod8$. The only nonzero entries in
+row $p$ of $M(d)$ are
+\begin{equation}
+        M_{p,j}(d)=A_{2p}^d,\qquad
+        M_{p,j+1}(d)=(\kappa_p A_{2p+1})^d .
+ \label{nl:matrix}
+\end{equation}
+Its edges append a binary digit to the three-digit state $p$ and
+discard the first digit. Thus $M^3$ is positive. Its spectral
+radius is continuous and strictly decreasing from two at $d=0$
+to zero as $d\to\infty$, by positivity and the strict decrease of
+the edge weights. At the unique root take $D>0$ with $M(d)D=D$,
+and put $w_i=A_i^d D_{i\bmod8}$. Then
+\[
+ w_{2p}+\kappa_p^d w_{2p+1}=D_p,\qquad
+ A_i^d w_{L(i)}+B_i^d w_{R(i)}=w_i.
+\]
+Consequently the mass $\tau^d w_i$ of each split is conserved
+by its replacement with its two child splits. Every frontier cell
+is identified by its next split, of height less than $\theta$.
+Conservation gives $k\ge w_0/(\theta^d\max_i w_i)$. Applying
+the lower formula in \eqref{e:alpha} to $k$ with $b_k\ge c_0\theta$ and letting
+$\theta\downarrow0$ proves $\alpha\ge d$.
+
+To enclose the root, take the rational vector
+\[
+\begin{split}
+ D_*=(\,&1.00000000000000,\ .99507721338637,\ 1.00122719927539,\ .99616212670301,\\
+       &.99998002103143,\ .99514192367964,\ 1.00112266506735,\ .99615533827001).
+\end{split}
+\]
+At $d_-=.35553850187$ the least coordinate of $M(d_-)D_*-D_*$
+exceeds $2.08\cdot10^{-11}$. At $d_+=.35553850189$ the greatest
+coordinate of $M(d_+)D_*-D_*$ is less than $-1.78\cdot10^{-11}$.
+For these inequalities compute each $x^d=\exp(-d\log(1/x))$
+using the same outward logarithm bounds with $N=120$. The
+arguments $u=d\log(1/x)$ lie in $[0,2]$, so the Taylor sums for
+$\exp(-u)$ through orders $35$ and $34$ bound it below and above.
+The componentwise inequalities, tested against a positive left
+Perron eigenvector, put $\rho(M(d_-))>1>\rho(M(d_+))$. This proves
+Proposition~\ref{nl:result}.
+
+\section{A certified upper bound for the exponent}
+\label{nu:section}
+
+Put $a=35563/100000$, $C=1499091/10$, and $\ell=\log 2$.
+We prove
+\begin{equation}
+ \alpha\le a_*:=\frac{a\ell}{\ell-\log(1-1/C)}
+                  <0.3556265775100 .                         \label{nu:bound}
+\end{equation}
+The lower bound counted the leaves of one feasible tree. To bound
+all such trees, assign each split of height $T$ the weight $T^a$.
+A bound $C$ for the sum of these weights implies that at most
+$C c^{-a}$ splits occur at heights $T\ge c$. There is an additional
+gain because the same inequality holds inside every subtree after
+rescaling. This accounts for the improvement from $a$ to $a_*$
+in \eqref{nu:bound}. The entropy calculation below establishes the
+uniform estimate on the sum of weights.
+
+\subsection{Entropy on the active tree}
+
+By Theorem~\ref{t:restore} it suffices to work on a weak full
+partition flag. Write $T_b$ for the split height of an internal
+vertex $b$, assigning height zero to terminal vertices. Only
+positive heights matter. A split is active at time $t<T_b$.
+For each $b$ observe the unrooted word $Y_b$ on its rows, using
+the zero observation before its split. At an internal vertex order
+its children $L,R$ so that
+\[
+ u=T_L/T_b\ge v=T_R/T_b,\qquad U=u^{1-a},\quad V=v^{1-a}.
+\]
+Set $w_b=T_b^{a-1}$ and $S_b=(T_b/T_{\rm parent})^{1-a}$,
+taking $S_b=0$ at the root. The three-row estimate in the proof
+of finiteness of $M(c)$ gives $u,v\le h=0.65$, since its exact
+ratio $(\log3-1)/(\log3-1+2-\log7)$ is less than $h$.
+Also $S_b\le0.76$, since $14(1-a)>9$ and $h^9<0.76^{14}$.
+The choice $w_b=T_b^{a-1}$ gives a unit rank cost over the lifetime
+of $b$ total weight $w_bT_b=T_b^a$. This lets us sum local entropy
+inequalities to control the number of splits. Every terminating
+decimal below is an exact rational number.
+
+For a linear observation $Y$ on the current full space let $e_Y$
+denote the integral of its entropy minus its rank. Weakness gives
+$e_{Y_b}\ge0$ and $e_{(Y_L,Y_R)}\ge0$. The full space makes the
+two child images a direct product. The rank on the parent exceeds
+their joint rank by one while the parent is active. Thus
+\[
+ e_{Y_b}-e_{Y_L}-e_{Y_R}
+  =\int_0^{T_b}\big[H(Y_b\mid Y_L,Y_R)-1-I(Y_L;Y_R)\big]dt,
+ \qquad
+ e_{(Y_L,Y_R)}=e_{Y_L}+e_{Y_R}-\int I(Y_L;Y_R)dt .
+\]
+Give an internal vertex the nonnegative weight
+$\beta_b=w_b-w_{\rm parent}$, with parent weight zero at the
+root, and assign terminal vertices $\beta_b=0$. In the sum
+$\sum_b\beta_b e_{Y_b}$ replace $m_b=\min(\beta_L,\beta_R)$
+copies of the separate child tests by their joint test. Each child
+is used at its unique parent. The resulting sum is nonnegative.
+Telescoping it using the displayed identities gives
+\begin{equation}
+ 0\le\sum_b w_b\int_0^{T_b}
+   [H(Y_b\mid Y_L,Y_R)-1-(1+m_b/w_b)I(Y_L;Y_R)]dt .       \label{nu:entropy}
+\end{equation}
+The coefficient of information at two active children is $1/U$.
+With at most one active child their mutual information is zero.
+
+Write $p_b=\PP(Y_b=0)$, $\theta_b=S_b\ell$, $E(y)=\log(2+e^y)$,
+$q(y)=e^y/(2+e^y)$, and $D(y)=2\ell-E(y)$. Add
+$\theta_bp_b-\ell\sum_{i\ {\rm active\ child}}p_i$ to the
+integrand at each active vertex. These terms cancel in
+\eqref{nu:entropy} since $w_i\theta_i=w_b\ell$.
+For $0\le r\le1$, $s>0$, define
+\[
+ A_{s,r}(d)=-s^{-1}\log(1-r+re^{-sd}),\qquad
+ A_{0,r}(d)=rd,\qquad A_s(d)=A_{s,q(s\ell)}(d).
+\]
+Let $K_-(p,r)=p\log(p/r)+(1-p)\log((1-p)/(1-r))$ for $p<r$
+and let $K_-(p,r)=0$ for $p\ge r$, with limiting conventions.
+
+At a fixed time propagate numbers $r_b$ upwards through the active
+tree. Suppose the active children already supply deductions
+$K_-(p_i,r_i)$ in their own weight units. For $y\le\theta_b$ put
+\[
+ \Gamma_b(y)=
+ \begin{cases}
+ E(y),&\text{no active children},\\
+ \ell-A_{U,r_L}(D(y)),&\text{one active child},\\
+ -A_{V,r_R}(A_{U,r_L}(D(y))),&\text{two active children}.
+ \end{cases}
+\]
+After applying the deductions of the children, the local
+contribution at price $\theta_b$, in units of $w_b$, is bounded by
+\begin{equation}
+  \Gamma_b(\theta_b)-1-K_-(p_b,r_b),
+  \qquad r_b=\Gamma_b'(\theta_b).                           \label{nu:reserve}
+\end{equation}
+To prove this, first use price $y$ and retain the universal $-1$
+separately. Two vacant children allow three unrooted extensions.
+Their conditional entropy plus $y$ times probability of parent
+vacancy is at most $E(y)$ by exponential tilting. A single vacant
+child allows two extensions and two nonvacant children determine
+the parent. With one active child of vacancy probability $x$,
+these bounds, including the child price, give $\ell-D(y)x$.
+With two active children they give $-D(y)\PP(B_L B_R=1)$, where
+$B_i=\one_{Y_i=0}$. Here $0\le D(y)\le\ell$. Data processing
+gives $I(Y_L;Y_R)\ge I(B_L;B_R)$. For any marginal $p_i>r_i$,
+independently thin its indicator to marginal $r_i$. This only
+reduces the intersection and the mutual information, and turns
+its zero one-sided cost into a zero ordinary divergence.
+Thus all indicator costs can now be taken to be ordinary
+Bernoulli divergences. The minimum of $dx+s^{-1}D(\mathrm{Ber}(x)
+\Vert\mathrm{Ber}(r))$ is $A_{s,r}(d)$. For two children combine
+$I(B_L;B_R)$ and the left marginal divergence into the conditional
+divergence of $B_L$ given $B_R$, and minimize first conditionally
+on $B_R$, then over its law. The coefficients are respectively
+$1/U$ and $1/V$. This proves the upper bound $\Gamma_b(y)-1$
+at every price $y\le\theta_b$.
+
+Now $A'_{s,r}(d)=re^{-sd}/(1-r+re^{-sd})$ and its derivative
+is $-sA'_{s,r}(1-A'_{s,r})$. With two active children let
+$z=q(y)$, $l=A'_{U,r_L}(D(y))$ and $m=A'_{V,r_R}(A_{U,r_L}(D(y)))$.
+Then $Q(y)=\Gamma_b'(y)=zlm$ and
+\[
+ Q'(y)/Q(y)=(1-z)+Uz(1-l)+Vzl(1-m)\le1-Q(y).
+\]
+Omit the absent factors and terms when there are fewer children.
+All references are in $(0,1)$ by induction. Integrating the
+derivative of the log odds gives
+$Q(\theta_b-d)\ge r_be^{-d}/(1-r_b+r_be^{-d})$.
+Lowering the price by $d$ subtracts $dp_b$ from the scored
+expression. Integrating the last bound and taking the supremum
+over $d\ge0$ gives $\sup_d[-dp_b-\log(1-r_b+r_be^{-d})]
+=K_-(p_b,r_b)$, proving \eqref{nu:reserve}. Every deduction is
+spent at most once, at the parent.
+
+\subsection{An integrated estimate at one split}
+
+At the scoring vertex abbreviate $S=S_b$, $D=D(S\ell)$ and set
+\[
+ B=E(S\ell)-1-(E(S\ell)-\ell)u-\ell v,\qquad
+ A=A_U(D),\qquad C_2=A_V(A).
+\]
+Here $B$ integrates the three bounds $E(S\ell),\ell,0$ for
+zero, one and two active children, with the subtraction of one,
+over the whole lifetime in units of $T_b$. The savings $A,C_2$
+are obtained when the respective active children are fresh,
+meaning none of their own children has yet split.
+
+For a root at height one with child splits at $u\ge v>0$ and no
+further splits, $D=\log(4/3)$ and the saving guaranteed by the
+entropy bound relative to $B$ is $A(u-v)+C_2v$. As $u\downarrow0$,
+the fresh reference values $q(U\ell)$ and $q(V\ell)$ tend to
+$1/3$. Hence $A\to D/3$ and $C_2\to D/9$ by the definition of
+$A_s$. The guaranteed saving is $D[(u-v)/3+v/9]+o(u)$.
+Expanding $A(u-v)+C_2v$ gives the
+coefficient $C_2-A\le0$ on $v$. Keeping the two interval lengths
+$u-v$ and $v$ intact lets the certificate substitute lower bounds
+for both savings directly.
+
+For each child record its largest child split ratio $g$ and its
+other ratio $z=gr$, with $0\le r\le1$ and $r=0$ if $g=0$.
+A terminal child has $g=z=0$.
+At a child with one active fresh descendant, its reference in
+\eqref{nu:reserve} divided by its fresh reference is
+$q(G(\ell-D(\theta)))$, where $G=g^{1-a}$ and $\theta$ is the
+child's price. With two active fresh descendants this factor is
+multiplied by $q(H(\ell-A_G(D(\theta))))$, $H=z^{1-a}$.
+The factors are at least $1/3+0.09G$ and $1/3+0.124H$.
+Indeed $q(t)\ge1/3+2t/9$ on $0\le t\le0.76\ell$ by
+$q'=q(1-q)\ge2/9$. Also $\ell-D(\theta)\ge\log(3/2)>0.405$,
+$D(\theta)<0.29$, and $A_G(d)\le q(G\ell)d\le0.46d$,
+by concavity and $2^{0.76}<46/27$.
+
+For $r_0\le q_s=q(s\ell)$ and $0\le d\le D$, writing
+$z_0=q_s(1-e^{-sd})$ gives
+\[
+ A_{s,r_0}(d)\ge (r_0/q_s)\frac{2(1-z_0)}{2-z_0} A_s(d).
+\]
+This follows from $z\le-\log(1-z)\le z+z^2/[2(1-z)]$.
+For $s\le0.76$ we have $z_0<0.092$, using
+$0.76\cdot0.29<\log(5/4)$, hence the second factor exceeds
+$0.951$. If $u\le h_0=0.225$ then $s\le u^{1-a}\le2/5$
+by $(9/40)^{16}<(2/5)^{25}$ and $1-a>16/25$. In this case
+$z_0\le0.46\cdot0.29\cdot2/5$ and the factor exceeds $0.97$.
+The fractions for two children multiply because $A_{s,r}(d)$
+is increasing, concave and zero at zero.
+
+Use $f=0.97$ on parent $u$ intervals ending at or below $h_0$
+and $f=0.951$ on the remaining interval. Let $p_1,p_2$ be the
+cell constants below, satisfying $0\le p_2\le p_1\le0.36$,
+$p_1\le f(1/3+0.09G)$ and
+$p_2\le f(1/3+0.09G)(1/3+0.124H)$. Introduce an auxiliary
+random cutoff for a child, in units of its own split height,
+with distribution
+\[
+ \begin{array}{c|ccc}
+ \text{value}&g&\max(z,h_0g)&h_0g\\
+ \text{probability}&1-p_1&p_1-p_2&p_2 .
+ \end{array}
+\]
+To justify the cutoff, first use the actual largest split ratio
+$d_*$ among this child's grandchildren in place of $h_0g$, in
+the same units. Above $g$ the child is fresh. Between
+$\max(z,d_*)$ and $g$ it has one active fresh child, and down to
+$d_*$ it has at most two active children, all fresh. Consequently
+the probability that the time exceeds this cutoff is a lower
+bound on its fraction of the fresh saving. Independent auxiliary
+cutoffs on the two sides multiply these fractions.
+
+Restoring $h_0g$ in the distribution overstates the fraction by
+at most $0.36$ on an interval of absolute length bounded by
+$\sum_c T_c(u_c-h_0)_+$, where $c$ ranges over internal children
+of the child in question and $u_c$ is its largest child ratio.
+Indeed $T_c\le gT_{\rm child}$ and $T_{\rm child}d_*=
+\max_c T_cu_c$. Each $c$ has a single grandparent, the scoring
+vertex $b$. Since $A,C_2\le0.46\cdot0.29$ and
+$w_b/w_c\le0.76 S_c$, adding $0.037 S_c(u_c-h_0)_+$ to
+the normalized cost at $c$ covers the error in the weighted sum.
+Indeed $0.76\cdot0.36\cdot0.46\cdot0.29<0.037$. For fractions
+$x,y,x',y'\in[0,1]$ one has
+$(x'y'-xy)_+\le(x'-x)_++(y'-y)_+$, so the same charges cover
+any overestimate of the product of the two saving fractions.
+
+Let $X=uC_L$, $Y=vC_R$ for the two cutoffs in child units.
+Integrating the one- and two-child saving fractions and using the
+last correction now gives
+\begin{align}
+ \mathcal T_b={}& B-A\,\EE[u-\max(v,X)]
+       -C_2\,\EE[(v-\max(X,Y))_+]+0.037S(u-h_0)_+,
+     \notag\\[-2pt]
+ &\hspace{30mm}0\le\sum_b T_b^a\mathcal T_b .                  \label{nu:toll}
+\end{align}
+
+\subsection{Rational certificate}
+
+Set $J=(0.17,0.195,0.225)$ and $K=(0.67,0.8)$.
+Divide the triangle $0\le z\le g\le h$ by the lines
+$g\in\{0,0.135,0.17,0.195,0.225,h\}$ and
+$z/g\in\{0,0.67,0.8,1\}$. In a cell take the lower endpoints
+$g_0,r_0$ of the two scale ranges. For
+$m(t)=10^{-3}\lfloor10^3t^{2/3}\rfloor$ and
+$n(t)=10^{-4}\lfloor10^4 t\rfloor$, use
+\[
+ L_0=1/3+0.09m(g_0),\quad R_0=1/3+0.124m(g_0r_0),\qquad
+ p_1=n(f L_0),\quad p_2=n(f L_0R_0).
+\]
+At vertices take the smaller of the adjacent lower endpoints
+in each variable, or zero at the origin. These choices obey the
+required bounds because $1-a<2/3$ and $g_0\le0.225$.
+
+To choose a potential, consider the sum of
+$T_w^a(\mathcal T_w+\varepsilon)$ over the internal vertices in
+the subtree at $b$, divided by $T_b^a$, where
+$\varepsilon=2\cdot10^{-6}$. This normalized sum equals
+$\mathcal T_b+\varepsilon$ plus the two normalized child sums
+with multipliers $u^a$ and $v^a$. We seek an upper bound
+$F(S,u,v)$ that obeys the same recursion as an inequality.
+The incoming price of vacancy is $S\ell$, and $u,v$ determine
+both the weights of the two children and their prices $U\ell,V\ell$.
+For fixed $S$ we allow the slope of $F$ to change on the lines
+$u=J_i$ and $v=K_i u$. The resulting function is affine on each
+scale cell, so its child contributions can be controlled at the
+vertices. With $\xi(u,v)$ having first three entries $(u-J_i)_+$
+and last two entries $(v-K_i u)_+$, take
+\[
+ P(S)=p_0+p'_1 S+p'_2 S^2,\qquad
+ F(S,u,v)=P(S)-\sum_{i=1}^5 S(k_i+l_i S)\xi_i(u,v),
+\]
+with coefficients
+\[
+ \begin{aligned}
+ 10^7(p_0,p'_1,p'_2)&=(2998182,1908507,617448),\\
+ 10^7(k_1,\ldots,k_5)&=(-549378,518337,3850552,308836,2552524),\\
+ 10^7(l_1,\ldots,l_5)&=(2467210,-1612715,-5000000,-763799,-5000000).
+ \end{aligned}
+\]
+For child scale pairs $(g,z)$ and $(g',z')$ the finite inequality is
+\begin{equation}
+ F(S,u,v)-\mathcal T_b-u^aF(U,g,z)-v^aF(V,g',z')
+                      \ge 2\cdot10^{-6}.                      \label{nu:certificate}
+\end{equation}
+We specify its verification, implemented in the accompanying
+\texttt{recursive\_certificate.py}.
+
+For fixed cutoff values the portion of $\mathcal T_b$ before
+the $0.037$ term is the maximum of
+\[
+ B-A(u-X),\quad B-A(u-v)-C_2(v-X),\quad
+ B-A(u-v)-C_2(v-Y).
+\]
+This follows by comparing $X$ to $v$ and $Y$, using $0\le C_2\le A$.
+The maximum is convex and nondecreasing in each cutoff. The cutoffs
+are convex functions of the child scale pairs, with fixed probabilities
+in each cell. The potential on a child is affine on its cell, so
+it suffices to check \eqref{nu:certificate} at pairs of cell vertices.
+Reducing both fractions at a vertex makes its cutoff stochastically
+larger, which tests the more demanding inequality. For $u>0$, cut
+$t=v/u$ at $0,0.67,0.8,1$, at possible values of $C_L$ and at
+$C_L/C_R$ in $(0,1)$ for $C_R>0$. Both expected saving lengths
+are rational linear combinations of $u,v$ on each resulting
+interval. The lengths are nonnegative and the coefficients may
+have either sign. Check both closed
+pieces at shared boundaries and use continuity for $u=0$.
+
+Here are the one-sided polynomial replacements used on each piece.
+Write $u=x^{14}$, $t=y^{14}$, $S=0.76s$, with $s,x,y\in[0,1]$,
+and $e=5-14a$. For $0\le z\le1$ put
+\[
+ W=z^{9+e},\quad w=z^9-ez^8(1-z^2)/2,\quad
+ D_5=z^5+ez^4(1-z^2)/2+e^2z^3(1-z)^2/2,
+ \quad D_{23}=z^{23}[1-e(1-z)-e(1-e)(1-z)^2/2].
+\]
+Then $w\le W\le z^9$, $W^2\ge z^{20}$,
+$z^{5-e}\le D_5$ and $z^{23+e}\le D_{23}$.
+The first and third bounds follow by expanding
+$\exp(\pm e|\log z|)$ and using
+$|\log z|\le (z^{-1}-z)/2$ and
+$|\log z|\le(1-z)/\sqrt z$. For the positive exponential the
+quadratic remainder is at most $e^2z^{-e}(\log z)^2/2$.
+The last bound uses the Taylor expansion of $z^e$ at $1$
+through degree two. Hence a branch potential $z^{5-e}P(W)$
+is at most $p_0D_5+p'_1z^{14}+p'_2D_{23}$.
+In the subtracted hinge charges $z^{5-e}W=z^{14}$ exactly.
+For the remaining coefficient of $W$ choose $w$ for a lower
+bound if it is nonnegative and $z^9$ otherwise.
+
+Take rational brackets
+$0.69314718055<\ell<0.69314718056$ and
+$1.09861228866<\log3<1.09861228867$, using $-$ and $+$ for
+the lower and upper endpoints. They and the three-row height
+comparison follow from the first $120$ terms of the series for
+$\log n=2\sum_{j\ge0} t^{2j+1}/(2j+1)$, $t=(n-1)/(n+1)$,
+with tail at most $2t^{241}/[241(1-t^2)]$.
+For $0\le b\le0.76\ell<0.527$ one has
+$2/9\le q'(b)\le1/4$, $q''=q'(1-2q)$ and
+$-1/8\le q'''=q'(1-6q')\le-2/27$. Taylor's formula gives
+\[
+ q(b)\ge1/3+2b/9+0.026b^2,\qquad E(S\ell)\le
+ L=(\log3)_++\ell_+S/3+(\ell_+S)^2/9+
+ (\ell_+S)^3/81-(\ell_-S)^4/324 .
+\]
+For the former inequality use $1/27-0.527/48>0.026$.
+Thus $B\le L-1-(L-\ell_+)u-\ell_-v$ and
+$0<d_0=2\ell_--L\le D<0.29$.
+Integrating $q(Ub)$ over $[\ell-D,\ell]$ gives $A$.
+The subinterval $[L-\ell_-,\ell_-]$ and the lower bound on $q$
+give its minorant
+\[
+ A_-=d_0/3+\frac{w(x)}9[\ell_-^2-(L-\ell_-)^2]
+        +\frac{0.026x^{20}}3[\ell_-^3-(L-\ell_-)^3].
+\]
+For the two-child term put
+\[
+ Q_z=1/3+2\ell_- w(z)/9+0.026\ell_-^2z^{20},\qquad
+ G_z(d)=Q_z d-z^9 d^2(2/9+\ell_+z^9/12)/2 .
+\]
+We have $A_{W(z)}(d)\ge G_z(d)$ for $0\le d\le D$ by its
+derivatives at zero and $q'(W\ell)\le2/9+W\ell/12$,
+which follows from $q''\le1/12$. On this interval $G_z$ is
+increasing and nonnegative since $Q_z>0.32$ and
+$2/9+\ell_+/12<0.29$. Monotonicity then gives
+$C_2\ge G_{xy}(G_x(d_0))$. The nonnegativity of the two
+actual saving lengths justifies applying the minorants after
+forming those lengths.
+
+The verifier expands the rational polynomial minorants for the
+slack minus $2\cdot10^{-6}$ in tensor-product Bernstein form.
+In degree $d$ the contribution of the monomial $x^j$ to control
+$i$ is $\binom{i}{j}/\binom{d}{j}$, understood as zero for
+$i<j$. It encloses each component coefficient by rounding
+down and up to multiples of $10^{-12}$. A signed multiplier uses
+the corresponding lower or upper endpoint, and its product is
+rounded down. Exact bisection on the mesh $2^{-25}$ encloses the
+fourteenth roots of all domain endpoints. To restrict a Bernstein
+table to $[L',H']$, its row $i$ averages the original controls
+with weights given by the sum of independent
+$\mathrm{Bin}(d-i,L')$ and $\mathrm{Bin}(i,H')$ variables,
+as follows by expanding a Bernstein polynomial on that interval.
+Subtracting the smallest control first makes all differences
+nonnegative, so rounding each weight down to a multiple of
+$2^{-45}$ and adding back the minimum gives a lower bound.
+The program evaluates these averages using three base-$2^{15}$
+digits, checking before each fixed-width matrix product that its
+integer sums fit. Its initial component bounds have magnitude
+below $2\cdot10^{12}$, the assembled sums use fewer than sixteen
+such components of multiplier at most one in absolute value, and
+midpoint subdivision only averages control values downwards.
+Thus all subsequent signed additions stay in the 64-bit range.
+If a coefficient is negative the box is subdivided at its midpoint,
+cycling through $x,y,s$ and rounding every de Casteljau average
+down. A nonnegative lower table certifies its whole box. The
+complete counts of pieces, visited boxes and greatest depth are
+\[
+ \begin{array}{c|rrr}
+ u\text{ interval}&\text{pieces}&\text{boxes}&\text{depth}\\ \hline
+ {[0,0.17]}&3238&88490&31\\
+ {[0.17,0.195]}&3238&6670&9\\
+ {[0.195,0.225]}&3238&3414&5\\
+ {[0.225,0.65]}&3238&4434&6 .
+ \end{array}
+\]
+This gives \eqref{nu:certificate}. Multiplying it by $T_b^a$
+and summing cancels all child potentials. By \eqref{nu:toll}
+the resulting bound is
+\[
+ \sum_b T_b^a\le (2\cdot10^{-6})^{-1}p_0=C .
+\]
+
+\subsection{Improvement from a uniform bound on subtrees}
+
+For each internal $v$ put $E_v=\sum_{w}T_w^a$, over all internal
+descendants including $v$. Restricting to the rows of $v$ and
+rescaling its positive lifetime to one gives another weak flag.
+Indeed above $T_v$ all its columns are constant, so every local
+test pulls back to an original test with full kernel there.
+Hence $E_v\le C T_v^a$. For $\sigma=a_*/a$ we have
+$2^{1-\sigma}(1-1/C)^\sigma=1$. Concavity now gives
+\[
+ \sum_{w\ {\rm internal\ child\ of}\ v} E_w^\sigma
+ \le 2^{1-\sigma}(E_v-T_v^a)^\sigma\le E_v^\sigma.
+\]
+Every antichain of internal vertices therefore has total
+$E_v^\sigma$ at most $C^\sigma$. The vertices with
+$s\le T_v<s/h$ are an antichain because every child height is
+at most $h$ times its parent height. Each such vertex contributes
+at least $s^{a_*}$. Summing over $s=ch^{-j}$, $j\ge0$, bounds
+the number of cells at height $c$ by
+$1+C^\sigma c^{-a_*}/(1-h^{a_*})$. The variational formula for
+$\alpha$ now gives \eqref{nu:bound}, by taking
+$k=M(c)+1$, so $s_k\le c$, and letting $c\downarrow0$.
+For the numerical comparison use $y=1/C$ and
+$y+y^2/2\le-\log(1-y)\le y+y^2/2+y^3/[3(1-y)]$ together
+with the rational bounds for $\ell$ above. This gives
+$0.3556265775098<a_*<0.3556265775100$. Together with
+Proposition~\ref{nl:result} this proves \eqref{e:decimal} and
+completes Theorem~\ref{t:main}.
+
+\appendix
+\section{Realizing a strict flag on prime logarithms}
+\label{s:realization}
+
+A strict flag prescribes many ways to assign prime logarithms to
+the rows. We need one assignment for which all the row sums are
+close. Ford, Green and Koukoulopoulos first produce many attainable
+discrepancy vectors in the integer model and then use fresh elements
+to reach the diagonal \cite[Propositions~5.9, 6.4 and Lemma~6.5]{fgk}.
+They trace the latter step to Maier and Tenenbaum \cite{mt84}.
+Mao and Song \cite[Appendix~A]{ms} give corrections to the moment
+and lattice estimates in the integer argument.
+
+For prime logarithms the attainable vectors lie in a real box.
+We use a second moment to show that unit neighbourhoods of these
+vectors cover a positive proportion of the box. A fresh pair of
+primes assigned complementary columns then moves one discrepancy
+coordinate by $\log(p/q)$. One such pair per coordinate yields a
+positive probability of reaching bounded distance from the
+diagonal. Conditional on the process supplying the attainable
+vectors for all trials, the trials use disjoint, independent
+reserves.
+
+As in Section~\ref{s:arith}, $\mathcal P$ has intensity
+$\nu=\sum_p p^{-1}\delta_{\log p}$, denoted there by $\mu$.
+Lemma~\ref{l:prime-log-measure} gives
+$\sum_{\log p\le y}(\log p)/p=y+O(1)$.
+Thus, for an absolute $C>0$, every half-open interval with endpoints
+$0<a<d$ satisfies
+\begin{equation}
+ \frac{d-a-C}{d}\le\nu((a,d])\le\frac{d-a+C}{a},\qquad
+ \nu((a,d])=\log(d/a)+O(1/a).                              \label{e:real-intensity}
+\end{equation}
+The first bounds follow by bounding $1/y$ on the interval, and the
+last equality follows by partial summation. Endpoint conventions are
+immaterial after enlarging $C$.
+
+\begin{lemma}\label{l:realization}
+Suppose a separating Boolean flag on $k\ge2$ rows has rank-one births
+at $1\ge c_1>\cdots>c_r>c_{r+1}=b>0$. Suppose that its stage laws
+satisfy the strict positive-endpoint tests. For each $0<b'<b$, with
+probability tending to one as $s\to\infty$, there are $k$ distinct
+subsets of $\mathcal P\cap(\exp(b's),\exp s]$ whose sums have
+diameter bounded by a constant depending only on the flag. The primes
+underlying all the selected points may be taken distinct.
+\end{lemma}
+
+\begin{proof}
+Work modulo the line of constant row vectors. Identify the resulting
+terminal space with $\mathbb R^r$ using the images of the successive
+Boolean birth columns $u_1,\dots,u_r$ as basis. Write $V_j$ for the
+span of the first $j$ basis vectors in these coordinates, $V_0=0$,
+and $\mu_j$ for the image of the stage law. All its letters have
+bounded coordinates, with a bound depending only on this fixed flag.
+Every assignment of letters below uses Boolean representatives from
+the original stage alphabets. Its sum in $\mathbb R^r$ specifies the
+row sums modulo their common translation.
+
+There is $g>0$ such that each proper boundary test has excess at
+least $g$. Indeed the dimensions of its kernels and the partitions
+they induce on the finite stage alphabets have only finitely many
+profiles. We need a bound also for kernels which grow inside a stage.
+Use intervals of lengths $s(c_j-c_{j+1})$ in descending order, and
+write $W$ for any increasing family of rational kernels with
+$W\subseteq V_j$ on the $j$th interval. Let $D$ be the total length
+on which $W\ne V_j$, and $e$ the final codimension. Sampling a uniform
+time in each interval gives a boundary test. Its probability of being
+proper is at least $D/s$, since this is bounded by the largest
+fraction of any interval spent with a proper kernel. Its sampled
+terminal codimension is at least $e$. Averaging the boundary tests
+therefore gives
+\[
+ \sum_j\int_j [H(\mu_j\bmod W)-\dim(V_j/W)]\,dt-bs e\ \ge\ gD.
+\]
+Here $\int_j$ denotes integration over the $j$th interval in the
+physical logarithmic coordinate $t=\log y$. Its origin does not
+affect this inequality. The entropy vanishes whenever $W=V_j$ and
+is bounded on every stage by $H_0=\max_j\log|\operatorname{supp}\mu_j|$.
+Fix $0<\lambda<1$ sufficiently close to one that
+$(1-\lambda)H_0<g/2$. We obtain
+\begin{equation}
+ \sum_j\int_j [\lambda H(\mu_j\bmod W)-\dim(V_j/W)]\,dt-bs e
+       \ \ge\ (g/2)D .                                      \label{e:real-gap}
+\end{equation}
+
+We now construct the attainable set. Independently color the process
+into three Poisson processes of
+intensities $\lambda\nu$ and $(1-\lambda)\nu/2$ twice. The
+first supplies a set of possible sums. For a translation $h\ge0$
+write $a_j=c_js-h$, $1\le j\le r+1$, and $U_j=\exp a_j$.
+In the bulk estimate allow $0\le h\le bs/2$, so $a_{r+1}\ge bs/2$.
+In each logarithmic interval $(a_{j+1},a_j]$, use consecutive bins of
+a fixed length $L\ge1$ starting from the top. Discard any final
+partial bin. All constants below may depend on the flag. The value
+of $L$ will be fixed independently of $s,h$.
+
+In a complete bin of stage $j$ with $n$ points of the first color,
+choose nonnegative integer counts for the letters, summing to $n$
+and differing from $n\mu_j$ by at most one per letter. Use a uniform
+random permutation of that multiset on the points, independently in
+the different bins. This defines a probability law on possible
+discrepancy vectors $Z=\sum_y y\,u(y)$ for each fixed configuration
+of points. We claim that for every $\xi>0$ there
+are $A,C_1<\infty$ such that, uniformly in the indicated translations,
+with probability at least $1-\xi$ for all sufficiently large $s$,
+\begin{align}
+ &\operatorname{supp} Z\ \subseteq\ \prod_{j=1}^r[-A U_j,A U_j],
+       \nonumber\\
+ &\left|\operatorname{supp} Z+[-1,1]^r\right|
+          \ \ge\ C_1^{-1}\prod_{j=1}^r U_j .                   \label{e:real-volume}
+\end{align}
+The bars in the second line denote Lebesgue measure. Coordinate $j$
+gets contributions only from points below $U_j$. The expected sum of
+all first-color points up to $U_j$ is $\lambda(U_j+O(1))$. The coordinate
+bound on the letters and Markov's inequality therefore prove the
+first line outside an event of arbitrarily small probability.
+
+To prove the second line, fix a small $\delta>0$. At each stage start
+require that the number $N(v)$ of first-color points in the first $v$
+logarithmic units satisfy
+\begin{equation}
+              |N(v)-\lambda v|\le\delta v+C_0                 \label{e:real-count}
+\end{equation}
+at all complete bin boundaries. The probability of failure is
+arbitrarily small when the constant $C_0$ is large, uniformly in
+$s,h$. For example, choose $\theta>0$ small enough that both
+$\lambda(e^{\pm\theta}-1\mp\theta)<\theta\delta/2$. At every tested
+prefix the mean is $\lambda v+O(1)$ by \eqref{e:real-intensity},
+uniformly since all used locations tend to infinity. The Poisson
+exponential martingales, with these deterministic cumulative means,
+and their maximal inequality bound the probability of failure on
+each side by $O(e^{-\theta C_0})$. Sum over the fixed number of stage starts.
+
+Condition on bin counts satisfying \eqref{e:real-count}. Label the
+points within a bin in uniformly random order. Their locations are
+then independent draws from $\nu$ normalized on that bin. Assign two
+independent letter permutations to these labels, giving vectors $Z,Z'$.
+The permutations are independent of the locations conditional on the
+counts. For a pair of permutations, take the cumulative span of its
+letter differences as bins are read from the top down. Record each
+bin in which this span increases and the resulting subspace. There
+are at most $r$ such bins. Define $W$ using the updated span from the
+upper boundary of each recorded bin, with $W=0$ initially. On discarded
+partial bins the span stays fixed. This gives nested kernels with
+$W\subseteq V_j$. Let $r'=\dim W_{\rm end}$, $e=r-r'$, and list
+the upper logarithmic bin endpoints $a'_1,\ldots,a'_{r'}$ at which
+dimensions were added, repeating each endpoint by its increment.
+The rank identity is
+\begin{equation}
+ \sum_{j=1}^r a_j-\sum_{i=1}^{r'}a'_i
+       =\sum_j\int_j\dim(V_j/W)\,dt+a_{r+1} e.                \label{e:real-rank}
+\end{equation}
+It follows by integrating the dimension contributions from each birth
+down to the end of the range. Since $a_{r+1}\le bs$, the last term
+is covered by \eqref{e:real-gap}.
+
+For a fixed pair of permutations, choose $r'$ independent difference
+letters from their recorded bins, adding a basis of each increment
+in turn. Condition on all other locations. The chosen locations are
+independent. A nonzero $r'$-row minor of the chosen columns confines
+each of these locations to an interval of length $O(1)$ when
+$\|Z-Z'\|_\infty\le2$. The constant is uniform since the columns come
+from a fixed finite alphabet. For a bin with upper endpoint $a'$, its
+total $\nu$-mass is $L+o(1)$, while any interval of bounded length
+inside it has $\nu$-mass $O_L(e^{-a'})$ by \eqref{e:real-intensity}.
+Hence the conditional point lands in its required interval with
+probability $O_L(e^{-a'})$. For
+$r'=0$ use probability at most one. Thus the conditional small-ball
+probability is at most
+\begin{equation}
+            O_L(1)\exp\left(-\sum_i a'_i\right).
+                                                               \label{e:real-pivots}
+\end{equation}
+
+Now fix the recorded bins and subspaces, which we call a profile in
+this proof. In an unrecorded bin of stage $j$ with current subspace $W$,
+the two permutations must agree point by point modulo $W$. The
+probability of agreement is the reciprocal of the multinomial
+coefficient for the bin's quotient counts. Hence its logarithm is
+at most $-nH(\mu_j\bmod W)+O(\log(n+2))$. Indeed, the factorial
+estimate $\log(n!)=n\log n-n+O(\log(n+2))$ and the bounded rounding
+errors give exactly this error for each of the finitely many letters
+and quotient classes. Use the estimate only for $W\ne V_j$, and
+impose no constraints on recorded bins. Independence over bins bounds
+the logarithm of the profile probability by
+\begin{equation}
+ -\sum_j\int_j\lambda H(\mu_j\bmod W)\,dt
+   +O\left((\delta+\log(L+2)/L)D\right)+O_{C_0,L}(1).
+                                                               \label{e:real-profile}
+\end{equation}
+Here the coefficient in the first error depends only on the fixed
+flag. We detail the estimate because a bound growing with the total
+length of the clock would not suffice. In each stage the times with
+$W\ne V_j$ form an initial segment of length $D_j$, and $\sum_jD_j=D$.
+The unrecorded complete bins with a fixed proper $W$ form runs, at
+most $2r+1$ over all stages. Both endpoints of any such run are
+within $D_j+L$ of its stage start. Subtracting the two prefix bounds
+\eqref{e:real-count} replaces its count by $\lambda$ times its length
+at an error at most $2\delta(D_j+L)+2C_0$. The omitted transition
+and partial bins have total length at most $2rL$. In a stage with $m$
+complete bins in its deficient prefix their total count is bounded
+by $(\lambda+\delta)mL+C_0$. Concavity of the logarithm bounds the
+sum of the multinomial errors there by a constant times
+$m\log(2+(\lambda+\delta)L)+C_0$. This proves \eqref{e:real-profile}.
+
+Take $L$ large, then $\delta$ small, so that the coefficient times
+$D$ in \eqref{e:real-profile} is at most $gD/8$. Combine the drift
+\eqref{e:real-gap} with the rank identity \eqref{e:real-rank} and the
+two probability bounds \eqref{e:real-pivots} and \eqref{e:real-profile}. Relative to
+$\exp(-\sum_j a_j)$, the contribution of any fixed profile
+to the small-ball probability is bounded by
+$O_{C_0,L}(1)e^{-3gD/8}$.
+For $m\le D<m+1$ the number of profiles is $O((m+2)^r)$ with a
+constant independent of $s,h$. Every recorded bin begins in, or at
+the end of, its stage's deficient prefix and is thus among its first
+$1+(m+1)/L$ bins. The stages, increments and possible subspaces are
+drawn from fixed finite lists, since every span is generated by
+letter differences. Summing the convergent series gives
+\[
+ \Pr(\|Z-Z'\|_\infty\le2\mid\hbox{counts})
+        \ll_{C_0,L} \left(\prod_j U_j\right)^{-1}.
+\]
+This probability averages over both positions and permutations.
+For fixed positions smooth the letter-assignment law by the uniform
+law on $[-1,1]^r$ and call the density $f$. Its squared integral
+is bounded by $2^{-r}$ times the preceding small-ball probability
+conditional on the positions, as follows by integrating the overlap
+of two translated cubes. Markov's inequality now gives
+$\int f^2\le C_1/\prod_j U_j$ outside an event of probability as
+small as desired over the first-color configuration. By
+Cauchy--Schwarz its support has volume at least $1/\int f^2$.
+This proves \eqref{e:real-volume}.
+
+It remains to turn positive volume into a close family of divisors.
+Fix $\xi>0$ and the corresponding
+constants in \eqref{e:real-volume}.
+Put $K=10(A+2)$ and fix $B>\log K$. Use $m_s=\lfloor\sqrt{s}\rfloor$
+trials with translations $h=lB$, $1\le l\le m_s$. For each direction
+$j$ and trial use the reserve interval $[U_j,KU_j]$. For large $s$
+these intervals are disjoint over all pairs $(j,l)$. This follows
+from $B>\log K$ for a common $j$ and from the fixed positive gaps
+between successive $c_j$ for distinct directions. Every used point
+lies in $(\exp(b's),\exp s]$, since $c_1\le1$, the first translation
+exceeds $\log K$, and $(b-b')s>Bm_s$ eventually.
+
+Condition on the first-color configuration. For one trial, require
+exactly one point of each of the two other colors in each of its $r$
+reserve intervals. This event has probability bounded below by a
+positive constant uniformly in $s,l$, since each interval has mass
+$\log K+o(1)$. The two points in direction $j$ have independent laws
+given by $\nu$ normalized on $[U_j,KU_j]$. Fix $H>C+2$ with $C$ as
+in \eqref{e:real-intensity}. For every half-open interval $I$ of
+length $H$ contained in $[-(A+2)U_j,(A+2)U_j]$, the difference
+of these points lies in $I$ with probability $\gg_A 1/U_j$.
+Indeed the first point lies in $[(A+4)U_j,(K-A-4)U_j]$ with
+probability bounded below by \eqref{e:real-intensity}. Given such a
+point $y$, the interval $y-I$ is inside $[U_j,KU_j]$ and has mass
+at least $(H-C)/(KU_j)$. Assign the Boolean column
+$u_j$ to the first point and its complement to the other. Their net
+contribution in the chosen basis is this difference in coordinate $j$.
+The contributions in different coordinates are independent. Use the
+disjoint half-open cubes of side $H$ on the standard grid in
+$\mathbb R^r$. At least $(C_1H^r)^{-1}\prod_j U_j$ such cubes meet
+the negative of the smoothed support in \eqref{e:real-volume}. Every
+one of these cubes is in $\prod_j[-(A+2)U_j,(A+2)U_j]$ for large $s$.
+The preceding interval estimate gives probability $\gg_A1/\prod_j U_j$
+to each cube. On their union some bulk assignment brings all
+discrepancy coordinates within $H+1$ of zero. The conditional
+probability of success in a trial satisfying \eqref{e:real-volume}
+is therefore at least $p_\xi>0$ independent of $s,l$.
+
+The expected fraction of trials failing \eqref{e:real-volume} is
+at most $\xi$. With probability at least $1-2\xi$ at least half the
+trials satisfy it, by Markov's inequality. Their reserve events are
+conditionally independent because their intervals are disjoint and
+their colors independent of the first process. The probability that
+all trials fail is at most $2\xi+(1-p_\xi)^{m_s/2}$. Let $s\to\infty$
+and then $\xi\downarrow0$. For a successful trial, every row pair is
+distinguished by at least one assigned reserve column because the
+columns $u_j$ separate the rows. Each row-sum difference has absolute
+value at most $r(H+1)$, since all entries of each $u_j$ are zero or
+one. The probability of two occurrences of any prime in the entire
+range is at most $\tfrac12\sum_{p\ge\exp(\exp(b's))}p^{-2}=o(1)$.
+The diameter bound $r(H+1)$ is independent of the chosen failure
+tolerance $\xi$. This proves the lemma.
+\end{proof}
+
+AI Disclosure: The author selected the research topic; artificial intelligence completed all mathematical derivations, proofs, and writing.
+
+\begin{thebibliography}{99}
+
+\bibitem{bt}
+R. de la Bret\`eche and G. Tenenbaum,
+Two upper bounds for the Erd\H{o}s--Hooley Delta-function,
+\emph{Sci. China Math.} \textbf{66} (2023), 2683--2692.
+\href{https://doi.org/10.1007/s11425-022-2193-8}{doi:10.1007/s11425-022-2193-8}.
+
+\bibitem{ct}
+T. M. Cover and J. A. Thomas, \emph{Elements of Information Theory},
+second edition, Wiley-Interscience, Hoboken, NJ, 2006.
+
+\bibitem{erdos}
+P. Erd\H{o}s, On the density of some sequences of integers,
+\emph{Bull. Amer. Math. Soc.} \textbf{54} (1948), 685--692.
+\href{https://doi.org/10.1090/S0002-9904-1948-09057-7}{doi:10.1090/S0002-9904-1948-09057-7}.
+
+\bibitem{en75}
+P. Erd\H{o}s and J.-L. Nicolas, R\'epartition des nombres superabondants,
+\emph{Bull. Soc. Math. France} \textbf{103} (1975), 65--90.
+\href{https://doi.org/10.24033/bsmf.1793}{doi:10.24033/bsmf.1793}.
+
+\bibitem{en76}
+P. Erd\H{o}s and J.-L. Nicolas, M\'ethodes probabilistes et combinatoires
+en th\'eorie des nombres, \emph{Bull. Sci. Math.} (2) \textbf{100}
+(1976), \href{https://www.renyi.hu/~p_erdos/1976-16.pdf}{301--320}.
+
+\bibitem{fgk}
+K. Ford, B. Green and D. Koukoulopoulos,
+Equal sums in random sets and the concentration of divisors,
+\emph{Invent. Math.} \textbf{232} (2023), 1027--1160.
+\href{https://doi.org/10.1007/s00222-022-01177-y}{doi:10.1007/s00222-022-01177-y}.
+
+\bibitem{ht}
+R. R. Hall and G. Tenenbaum,
+On the average and normal orders of Hooley's $\Delta$-function,
+\emph{J. London Math. Soc.} (2) \textbf{25} (1982), 392--406.
+\href{https://doi.org/10.1112/jlms/s2-25.3.392}{doi:10.1112/jlms/s2-25.3.392}.
+
+\bibitem{hooley}
+C. Hooley, On a new technique and its applications to the theory of numbers,
+\emph{Proc. London Math. Soc.} (3) \textbf{38} (1979), 115--151.
+\href{https://doi.org/10.1112/plms/s3-38.1.115}{doi:10.1112/plms/s3-38.1.115}.
+
+\bibitem{hz}
+J. Hou and H. Zhao, Equal subset sums and close divisors,
+preprint (2026), \href{https://arxiv.org/abs/2609.26014}{arXiv:2609.26014}.
+
+\bibitem{mt84}
+H. Maier and G. Tenenbaum, On the set of divisors of an integer,
+\emph{Invent. Math.} \textbf{76} (1984), 121--128.
+\href{https://doi.org/10.1007/BF01388495}{doi:10.1007/BF01388495}.
+
+\bibitem{mt85}
+H. Maier and G. Tenenbaum, On the normal concentration of divisors,
+\emph{J. London Math. Soc.} (2) \textbf{31} (1985), 393--400.
+\href{https://doi.org/10.1112/jlms/s2-31.3.393}{doi:10.1112/jlms/s2-31.3.393}.
+
+\bibitem{mt09}
+H. Maier and G. Tenenbaum, On the normal concentration of divisors, 2,
+\emph{Math. Proc. Cambridge Philos. Soc.} \textbf{147} (2009), 513--540.
+\href{https://doi.org/10.1017/S0305004109002631}{doi:10.1017/S0305004109002631}.
+
+\bibitem{ms}
+Y. Mao and Y. Song, Close divisors of typical integers:
+the Ford--Green--Koukoulopoulos conjecture,
+preprint (2026), \href{https://arxiv.org/abs/2609.22296}{arXiv:2609.22296}.
+
+\end{thebibliography}
+\end{document}
